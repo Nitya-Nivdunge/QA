@@ -1,0 +1,375 @@
+{
+  "Card Reader": {
+    "Insert Card": [],
+    "Take Card": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Status": {
+      "Media": ["PRESENT","NOTPRESENT","JAMMED","NOTSUPP","UNKNOWN","ENTERING","LATCHED"],
+      "Security": ["OPEN", "NOTREADY", "NOTSUPP"],
+      "Chip": ["ONLINE","POWEROFF","BUSY","NODEVICE","HWERROR","NOCARD","NOTSUPP","UNKNOWN"],
+      "Retain Bin": ["OK", "HIGH", "FULL", "NOTSUPP"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Set Capabilities": {
+      "Power On Options": ["NOACTION","EJECT","RETAIN","EJECTTHENRETAIN","READPOSITION"],
+      "Power Off Options": ["NOACTION","EJECT","RETAIN","EJECTTHENRETAIN","READPOSITION"],
+      "Security": ["NOTSUPP", "MMBOX", "CIM86"],
+      "Flux Sensor": ["PRESENT", "NOTPRESENT"],
+      "Compound": ["FALSE", "TRUE"],
+      "Flux Sensor Programmable": ["FALSE", "TRUE"],
+      "Read Write Access Following Eject": ["FALSE", "TRUE"],
+      "Write Mode": ["NOTSUPP", "LOCO", "HICO", "AUTO"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": []
+  },
+
+  "Contactless Card Reader": {
+    "Tap Card": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Status": {
+      "Media": ["PRESENT","NOTPRESENT","JAMMED","NOTSUPP","UNKNOWN","ENTERING","LATCHED"],
+      "Security": ["OPEN", "NOTREADY", "NOTSUPP"],
+      "Chip": ["ONLINE","POWEROFF","BUSY","NODEVICE","HWERROR","NOCARD","NOTSUPP","UNKNOWN"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Set Capabilities": {
+      "Security": ["NOTSUPP", "MMBOX", "CIM86"],
+      "Compound": ["FALSE", "TRUE"],
+      "Flux Sensor Programmable": ["FALSE", "TRUE"],
+      "Write Mode": ["NOTSUPP", "LOCO", "HICO", "AUTO"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": []
+  },
+
+  "Receipt Printer": {
+    "Take Receipt": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "View Receipt": [],
+    "Change Status": {
+      "Media": ["PRESENT","NOTPRESENT","JAMMED","UNKNOWN","ENTERING","RETRACTED"],
+      "Toner": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Ink": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Lamp": ["OK", "FADING", "INOP", "NOTSUPP", "UNKNOWN"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Change Paper Status": ["JAMMED","FULL","OUT","LOW","NOTSUPP","UNKNOWN"],
+    "Change All Paper Status": ["JAMMED","FULL","OUT","LOW","NOTSUPP","UNKNOWN"]
+  },
+
+  "Statement Printer": {
+    "Take Statement": [],
+    "View Statement": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Status": {
+      "Media": ["PRESENT","NOTPRESENT","JAMMED","UNKNOWN","ENTERING","RETRACTED"],
+      "Toner": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Ink": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Lamp": ["OK", "FADING", "INOP", "NOTSUPP", "UNKNOWN"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": []
+  },
+
+  "Journal Printer": {
+    "View Journal": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Status": {
+      "Media": ["PRESENT","NOTPRESENT","JAMMED","UNKNOWN","ENTERING","RETRACTED"],
+      "Toner": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Ink": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Lamp": ["OK", "FADING", "INOP", "NOTSUPP", "UNKNOWN"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Change Paper Status" : ["FULL","OUT","NOTSUPP","UNKNOWN","JAMMED"]
+  },
+
+  "Sensors": {
+    "Set Doors": [],
+    "Set Sensors": [],
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Set Indicators": []
+  },
+
+  "Dispenser": {
+    "Take Cash": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Shutter Status": [],
+    "Change Transport": [],
+    "Change Status": {
+      "Dispenser": ["OK", "CUSTATE", "CUSTOP", "CUUNKNOWN"],
+      "Safe Door": ["NOTSUPPORTED", "OPEN", "CLOSED", "UNKNOWN"],
+      "Stacker": ["EMPTY","NOTEMPTY","NOTEMPTYCUST","NOTEMPTYUNK","UNKNOWN","NOTSUPPORTED"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Modify Cash": [],
+    "Change Capabilities":["Retract Modify"],
+    "Change CashUnit Status": [],
+    "Change Transport Status": [],
+    "Change Present State": ["UNKNWON","PRESENTED","NOTPRESENTED"]
+  },
+
+  "Envelope Depositor": {
+    "Take Envelope": [],
+    "Insert Envelope": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Secific"],
+    "Remove Fault": [],
+    "Change Status": {
+      "Deposit Container": ["OK","HIGH","FULL","INOP","MISSING","UNKNOWN","NOTSUPP"],
+      "Deposit Transport": ["OK","INOP","UNKNOWN","NOTSUPP"],
+      "Shutter": ["CLOSED","OPEN","JAMMED","UNKNOWN","NOTSUPP"],
+      "Envelop Supply": ["OK","LOW","EMPTY","INOP","MISSING","NOTSUPP","UNLOCKED","UNKNOWN"],
+      "Envelop Dispenser": ["OK","INOP","UNKNOWN","NOTSUPP"],
+      "Printer": ["OK","INOP","UNKNOWN","NOTSUPP"],
+      "Toner": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": []
+  },
+
+  "Cash Depositor": {
+    "Insert Cash": [],
+    "Take Cash": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General","Device Specific"],
+    "Remove Fault": [],
+    "Change Shutter Status" : [],
+    "Change Transport" : [],
+    "Change Status": {
+      "Safe Door": ["OPEN", "CLOSED", "NOTSUPPORTED", "UNKNOWN"],
+      "Acceptor Cash Units": ["OK", "STATE", "STOP", "UNKNOWN"],
+      "Banknote Reader": ["OK", "INOP", "UNKNOWN", "NOTSUPPORTED"],
+      "Stacker Status": ["EMPTY","NOTEMPTY","FULL","UNKNOWN","NOTSUPPORTED"],
+      "Customer Access": ["CUSTOMERACCESS","NOCUSTOMERACCESS","ACCESSUNKNOWN","NOITEMS"],
+      "Drop Box": ["FALSE", "TRUE"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change Present State": ["UNKNOWN","PRESENTED","NOTPRESENTED"],
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Change Transport Ststus" : []
+  },
+
+  "Coin Depositor": {
+    "Insert Coin": [],
+    "Take Coin": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Shutter Status": [],
+    "Change Transport": [],
+    "Change Status": {
+      "Safe Door": ["OPEN", "CLOSED", "NOTSUPPORTED", "UNKNOWN"],
+      "Acceptor Cash Units": ["OK", "STATE", "STOP", "UNKNOWN"],
+      "Banknote Reader": ["OK", "INOP", "UNKNOWN", "NOTSUPPORTED"],
+      "Stacker Status": ["EMPTY","NOTEMPTY","FULL","UNKNOWN","NOTSUPPORTED"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"],
+      "Stacker Customer Access":["CUSTOMERACCESS","NOCUSTOMERACCESS","ACCESSUNKNOWN","NOITEMS"],
+      "Drop Box":["FALSE","TRUE"]
+    },
+    "Change Present State": ["UNKNOWN","PRESENTED","NOTPRESENTED"],
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Change Transport Status":[]
+  },
+
+  "Cheque Depositor": {
+    "Insert Cheque": [],
+    "Take Cheque": [],
+    "Take Refuse Cheque": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General","Device Specific"],
+    "Remove Fault": [],
+    "Change Shutter Status" : [],
+    "Change Transport Status" : [],
+    "Change Status": {
+      "Media": ["NOTSUPP","NOTPRESENT","REQUIRED","PRESENT","JAMMED"],
+      "Toner": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Ink": ["FULL", "LOW", "OUT", "NOTSUPP", "UNKNOWN"],
+      "Form Data": ["NODATA", "MANUAL", "PREDEFINED"],
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"],
+      "AntiFraud Module": ["AFMNOTSUPP","AFMOK","AFMINOP","AFMDEVICEDETECTED","AFMUNKNOWN"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "CHange MediaBin Status":{
+      "MediaIn":["OK","FULL","HIGH","UNKNOWN","MISSING","INOP"],
+      "Retract":["OK","FULL","HIGH","UNKNOWN","MISSING","INOP"]
+    }
+  },
+
+  "Recycler Cash IN/OUT": {
+    "Insert Recycler": [],
+    "Take Recycler": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": {
+      "General":[],
+      "Device Specific":["CashDepositor","CashDispenser"]
+    },
+    "Remove Fault": ["CashDEpositor","CashDispenser"],
+    "Change Shutter Status":[],
+    "Change Transport":[],
+    "Change Transport Status":[],
+    "Change Status": {
+      "Safe Door": ["OPEN", "CLOSED", "NOTSUPPORTED", "UNKNOWN"],
+      "Banknote Reader": ["OK", "INOP", "UNKNOWN", "NOTSUPPORTED"],
+      "Acceptor Cash Units": ["OK", "STATE", "STOP", "UNKNOWN"],
+      "Recycle In": {
+        "Stacker":["EMPTY","NOTEMPTY","FULL","UNKNOWN","NOTSUPPORTED"],
+        "Stacker Customer Access":["CUSTOMERACCESS","NOCUSTOMERACCESS","ACCESSUNKNOWN","NOITEMS"],
+        "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    },
+      "Recycle Out": {
+        "Stacker":["EMPTY","NOTEMPTY","NOTEMPTYCUST","NOTEMPTYUNK","UNKNOWN","NOTSUPPORTED"],
+        "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+      }
+    },
+    "Change Position Status": [],
+    "Change Capabilities":{
+      "Retract Modify":[]
+    },
+    "Change CashUnit Status": {
+      "RECYCLEIN":{
+        "Logical Unit 1":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"],
+        "Logical Unit 2":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"],
+        "Logical Unit 3":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"],
+        "Logical Unit 4":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"],
+        "Logical Unit 5":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"],
+        "Logical Unit 6":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"],
+        "Logical Unit 7":["OK","FULL","HIGH","LOW","EMPTY","INOP","MISSING","NOVAL","NOREF","MANIP"]
+      },
+      "RECYCLEOUT":{
+        "Logical Unit 1":["MISSING","MANIP"],
+        "Logical Unit 2":["MISSING","MANIP"],
+        "Logical Unit 3":["MISSING","MANIP"],
+        "Logical Unit 4":["MISSING","MANIP"],
+        "Logical Unit 5":["MISSING","MANIP"],
+        "Logical Unit 8":["MISSING","MANIP"]
+      }
+    },
+    "Take Cash Fault":[],
+    "Modify Cash":[],
+    "Change Present State" : {
+      "Recycle Out":["UNKNOWN","PRESENTED","NOTPRESENTED"]
+    },
+    "Change lpszExtra": ["Recycle In","Recycle Out"],
+    "Clear lpszExtra": ["Recycle In","Recycle Out"]
+  },
+
+  "Mixed Depositor": {
+    "Insert Mixed Media": [],
+    "Take Mixed Media": [],
+    "Take Refused Media": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": {
+      "Cheque Depositor":["General","Device Specific"], 
+      "Cash Depositor":["General","Device Specific"]
+    },
+    "Remove Fault": [],
+    "Change Shutter Status":["Cash Depositor","Cheque Depositor"],
+    "Change Transport Status":["Cash Depositor","Cheque Depositor"],
+    "Change Status": {
+      "Cash Acceptor":{
+        "Safe Door": ["OPEN", "CLOSED", "NOTSUPPORTED", "UNKNOWN"],
+        "Acceptor Cash Units": ["OK", "STATE", "STOP", "UNKNOWN"],
+        "Banknote Reader": ["OK", "INOP", "UNKNOWN", "NOTSUPPORTED"],
+        "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"],
+        "Mixed Mode": ["MIXEDMEDIANOTACTIVE","IPMMIXEDMEDIA"],
+        "AntiFraud Module": ["AFMNOTSUPP","AFMOK","AFMINOP","AFMDEVICEDETECTED","AFMUNKNOWN"],
+        "Drop Box": ["FALSE", "TRUE"],
+        "Stacker Status": ["EMPTY","NOTEMPTY","FULL","UNKNOWN","NOTSUPPORTED"],
+        "Stacker Customer Access": ["CUSTOMERACCESS","NOCUSTOMERACCESS","ACCESSUNKNOWN","NOITEMS"]
+      },
+      "Cheque Acceptor":{
+        "Media":["NOTSUPP","NOTPRESENT","REQUIRED","PRESENT","JAMMED"],
+        "Ink":["NOTSUPP","FULL","LOW","OUT"],
+        "Form Data": ["NODATA", "MANUAL", "PREDEFINED"],
+        "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"],
+        "AntiFraud Module": ["AFMNOTSUPP","AFMOK","AFMINOP","AFMDEVICEDETECTED","AFMUNKNOWN"]
+      }
+    },
+    "Change lpszExtra": ["Cash Acceptor","Cheque Acceptor"],
+    "Clear lpszExtra": ["Cash Acceptor","Cheque Acceptor"]
+  },
+
+  "Coin Dispenser":{
+    "Take Coin":[],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change Shutter Status":[],
+    "Change Transport":[],
+    "Change Status":{
+      "Dispenser":["OK","CUSTATE","CUSTOP","CUUNKNOWN"],
+      "Safe Door":["OPEN","CLOSED","NOTSUPPORTED","UNKNOWN"],
+      "Device Position":["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"],
+      "Stacker":["EMPTY","NOTEMPTY","NOTEMPTYCUST","NOTEMPTYUNK","UNKNOWN","NOTSUPPORTED"]
+    },
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Change Transport Status":[],
+    "Change Present State":["UNKNOWN","PRESENTED","NOTPRESENTED","Encryption"]
+  },
+
+  "PIN Pad": {
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General","Device Specific"],
+    "Remove Fault": [],
+    "Change Status": {
+      "Device Position": ["DEVICEINPOSITION","DEVICENOTINPOSITION","DEVICEPOSUNKNOWN","DEVICEPOSNOTSUPP"]
+    },
+    "Change PINBlock": [],
+    "ResetPinBlock": [],
+    "Change Encryption": ["READY","NOTREADY","INITIALIZED","NOTINITIALIZED","BUSY","UNDEFINED"],
+    "Certificate": ["PRIMARY","SECONDARY","NOTREADY","NOTSUPP"],
+    "Change lpszExtra": [],
+    "Clear lpszExtra": []
+  },
+
+  "Barcode Reader": {
+    "Select Barcode": [],
+    "Clear All Barcode": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change lpszExtra": [],
+    "Clear lpszExtra": [],
+    "Set Delay": [],
+    "Clear Delay": [],
+    "Change Status": {
+      "Device Position": ["INPOSITION","NOTINPOSITION","UNKNOWN","NOTSUPPORTED"]
+    }
+  },
+
+  "ID Scanner": {
+    "Insert ID": [],
+    "Change Dev Status": ["ONLINE","OFFLINE","POWER OFF","BUSY","NO DEVICE","USER ERROR","HW ERROR"],
+    "Create Fault": ["General", "Device Specific"],
+    "Remove Fault": [],
+    "Change lpszExtra": [],
+    "Clear lpszExtra": []
+  }
+}

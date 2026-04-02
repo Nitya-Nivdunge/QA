@@ -1,0 +1,2496 @@
+/* MERGED CSS */
+/* ═══════════════════════════════════════════════════════════════
+   ATM SIMULATOR — STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+   :root {
+    --panel-bg:   #888b8f;
+    --charcoal:   #404046;
+    --green:      #3da949;
+  
+    /* Fixed screen dimensions — NEVER change */
+    --sw:  1024px;
+    --sh:  768px;
+  
+    /* Right column width — matches layout.js RC=180 */
+    --rcw:230px;
+  
+    /* Bottom panel height — matches layout.js BRH=160 */
+    --brh:200px;
+  
+    /* Uniform device height — right-col & bottom-row identical */
+    --dev-h: 52px;
+    
+    --rcw-fallback: calc(var(--rcw) * 0.70);   /* 30% narrower */
+  
+  
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    color: #2f2f35;
+  }
+  
+  *, *::before, *::after { box-sizing: border-box; }
+  
+  html, body {
+    margin: 0; padding: 0;
+    background: transparent;
+    overflow: hidden;
+  }
+  
+  /* ─────────────────────────────────────────────
+     SCREEN FRAME (always top-left)
+     ───────────────────────────────────────────── */
+  .screen-frame {
+    position: fixed;
+    top: 0; left: 0;
+    width:  var(--sw);
+    height: var(--sh);
+    border: 4px solid var(--charcoal);
+    border-radius: 0 8px 8px 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 0 3px var(--panel-bg);
+  }
+  
+  /* ─────────────────────────────────────────────
+     PANEL BASE
+     ───────────────────────────────────────────── */
+  .panel {
+    position: fixed;
+    background: var(--panel-bg);
+    z-index: 20;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+  }
+  
+  /* ─────────────────────────────────────────────
+     RIGHT COLUMN 1
+     ───────────────────────────────────────────── */
+  .panel-col1 {
+    top: 0;
+    left: var(--sw);
+    width: var(--rcw);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px;
+    align-items: center;
+  }
+  
+  /* ─────────────────────────────────────────────
+     RIGHT COLUMN 2  (twocol + small only)
+     ───────────────────────────────────────────── */
+  .panel-col2 {
+    top: 0;
+    left: calc(var(--sw) + var(--rcw));
+    width: var(--rcw);
+    bottom: 0;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding:5px 8px;
+  }
+  
+  /* ─────────────────────────────────────────────
+     BOTTOM PANEL  (lshape only)
+     Constrained to screen width only — no overlap with right col
+     ───────────────────────────────────────────── */
+  .panel-bottom {
+    top: var(--sh);
+    left: 0;
+    width: var(--sw);          /* exactly inner screen width */
+    height: var(--brh);
+    display: none;
+    flex-direction: row;
+    gap: 6px;
+    padding: 10px 10px 8px;
+    align-items: flex-start;
+  }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     LAYOUT MODES
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* ── lshape ── */
+  [data-layout="lshape"] body {
+    width:  calc(var(--sw) + var(--rcw));
+    height: calc(var(--sh) + var(--brh));
+    overflow: hidden;
+  }
+  [data-layout="lshape"] .panel-col1 {
+    top: 0;
+    bottom: auto;
+    height: calc(var(--sh) + var(--brh));
+    overflow-y: hidden;
+  }
+  [data-layout="lshape"] .panel-col2 { display: none; }
+  [data-layout="lshape"] .panel-bottom { display: flex; }
+  [data-layout="lshape"] .col1-lshape-only  { display: flex; flex-direction: column; }
+  [data-layout="lshape"] .col1-twocol-only  { display: none !important; }
+  [data-layout="lshape"] .col1-spacer       { margin-top: 8px;}
+  
+  /* ── twocol ── */
+  [data-layout="twocol"] body {
+    width:  calc(var(--sw) + 2 * var(--rcw));
+    height: 100vh;
+    overflow: hidden;
+  }
+  [data-layout="twocol"] .panel-col1 { bottom: 0; }
+  [data-layout="twocol"] .panel-col2 { display: flex; }
+  [data-layout="twocol"] .panel-bottom { display: none; }
+  [data-layout="twocol"] .col1-lshape-only  { display: none !important; }
+  [data-layout="twocol"] .col1-twocol-only  { display: flex; flex-direction: column; }
+  [data-layout="twocol"] .col1-spacer       { margin-top: auto; }
+  
+  /* ── small ── */
+  [data-layout="small"] html { overflow-y: auto; overflow-x: hidden; }
+  [data-layout="small"] body {
+    width:  calc(var(--sw) + 2 * var(--rcw));
+    height: var(--sh);
+    min-height: var(--sh);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  [data-layout="small"] .screen-frame  { position: absolute; }
+  [data-layout="small"] .panel         { position: absolute; }
+  [data-layout="small"] .panel-col1    { bottom: 0; min-height: var(--sh); }
+  [data-layout="small"] .panel-col2    { display: flex; min-height: var(--sh); }
+  [data-layout="small"] .panel-bottom  { display: none; }
+  [data-layout="small"] .col1-lshape-only  { display: none !important; }
+  [data-layout="small"] .col1-twocol-only  { display: flex; flex-direction: column; }
+  [data-layout="small"] .col1-spacer       { margin-top: auto; }
+  
+  .panel-col1.dev-block,.panel-col1.tray-dev{
+      margin-top: 4px;
+  }
+  /* ─────────────────────────────────────────────
+     DEV BLOCK  (all panel device cards)
+     Same color as panel — blends in, faint edge cue
+     ───────────────────────────────────────────── */
+  .dev-block {
+    position: relative;
+    border-radius: 4px;
+    background: var(--panel-bg);
+    border: 1px solid transparent;
+    box-shadow: none;
+    width: 100%;
+    padding: 4px 6px 6px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    cursor: grab;
+      margin-top: 0;
+  
+  }
+  .dev-block:active { cursor: grabbing; }
+  
+  /* ── Dragging state ── */
+  [data-draggable-control]:not(.is-dragging) {
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+  }
+  [data-draggable-control].is-dragging {
+    z-index: 9999 !important;
+    border: 2px dashed rgba(255,255,255,0.75) !important;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5) !important;
+    cursor: grabbing !important;
+  }
+  [data-draggable-control] {
+    touch-action: none;
+    will-change: transform;
+    position: relative;
+  }
+  [data-draggable-control][data-free-drag="1"] { z-index: 35; }
+  .drag-handle { display: none !important; }
+  
+  /* ─────────────────────────────────────────────
+     TRAY SLOT  — shared by right-col & bottom-row
+     Half-height, thin inner slit, lighter trapezoids
+     ───────────────────────────────────────────── */
+  .tray-slot {
+    position: relative;
+    width: 100%;
+    height: 22px;
+    align-self: center;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #c8cacc 0%, #9a9c9e 100%);
+    overflow: hidden;
+    margin-top: 2px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+  .tray-slot::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, #b8babc 0%, #909294 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 91% 30%, 9% 30%);
+  }
+  .tray-slot::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(180deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 4px),
+      linear-gradient(180deg, #a0a2a4 0%, #c8cacc 100%);
+    clip-path: polygon(9% 62%, 91% 62%, 100% 100%, 0% 100%);
+  }
+  .tray-slot-inner {
+    position: absolute; top: 30%; left: 9%; right: 9%; height: 22%;
+    background: #0e0f12;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.95), inset 0 -1px 1px rgba(0,0,0,0.5);
+    z-index: 2;
+  }
+  .tray-slot-left {
+    position: absolute; top: 0; left: 0; width: 9%; height: 100%;
+    background: linear-gradient(90deg, #a8aaac 0%, #888a8c 100%);
+    clip-path: polygon(0% 0%, 100% 30%, 100% 62%, 0% 100%);
+    z-index: 1;
+  }
+  .tray-slot-right {
+    position: absolute; top: 0; right: 0; width: 9%; height: 100%;
+    background: linear-gradient(90deg, #888a8c 0%, #a8aaac 100%);
+    clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 62%);
+    z-index: 1;
+  }
+  
+  /* ─────────────────────────────────────────────
+     TRAY DEVICE — right column
+     Exact same height as bottom-dev
+     ───────────────────────────────────────────── */
+  .tray-dev {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+    width: 180px;
+  }
+  
+  /* ─────────────────────────────────────────────
+     CARD READER BLOCK
+     ───────────────────────────────────────────── */
+  .card-reader-block {
+    min-height: 100px;
+    height: auto;
+    background: var(--panel-bg);
+    border: 1px solid transparent;
+    cursor: grab;
+  }
+  .card-reader-block:active { cursor: grabbing; }
+  .cr-slot-housing {
+    margin: 2px 3px 2px;
+    background: linear-gradient(180deg, #a8aaae 0%, #c8cace 30%, #b0b2b6 70%, #909294 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.4);
+    border-radius: 3px;
+    border: 1px solid #7a7c80;
+    padding: 3px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .cr-slot-top-face {
+    width: 100%; height: 16px;
+    background: #4f5258;
+    border-radius: 3px;
+    border: 1.5px solid #5d6068;
+    margin-top: 3px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+  }
+  .cr-slot-slit {
+    width: 70%; height: 3px;
+    background: #06080c;
+    border-radius: 1px;
+  }
+  .cr-slot-arrow-hint { font-size: 7px; color: #000; }
+  .cr-tap-hint {
+    display: block;
+    text-align: center;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    margin: 2px 0 1px;
+  }
+  .card-ccr-icons {
+    display: flex; flex-direction: row;
+    gap: 6px; align-items: center; justify-content: center;
+    padding: 3px 3px 2px; flex: 1;
+  }
+  .card-sub-icon {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    flex: 1; cursor: pointer;
+  }
+  .card-sub-icon .icon    { width: 36px; height: 42px; stroke-width: 1.8; }
+  .card-sub-icon .ccr-icon { width: 44px; height: 42px; }
+  
+  /* ─────────────────────────────────────────────
+     ID SCANNER — plain dark slot, no LED row
+     ───────────────────────────────────────────── */
+  .id-scanner-block {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+  }
+  
+  .id-scanner-slot{
+    width: 100%; height: 20px;
+    background: #4f5258;
+    border-radius: 3px;
+    border: 1.5px solid #5d6068;
+    margin-top: 3px;
+    align-items: center; justify-content: center;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+  }
+  .id-slot-slit {
+    width: 80%; height: 4px;
+    background: #06080c;
+    border-radius: 1px;
+    align-items: center;
+    margin: 7px 0 0 20px;
+  }
+  
+  /* hide old LED and slot-face if they appear */
+  .slot-led-row { display: none; }
+  
+  /* ─────────────────────────────────────────────
+     BARCODE READER
+     Same height as tray-dev
+     ───────────────────────────────────────────── */
+  .barcode-block {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+  }
+  .barcode-scanner-window {
+    margin: 2px 4px 0; flex: 1;
+    background: #181c24; border-radius: 3px;
+    border: 1.5px solid #2a3040;
+    position: relative; overflow: hidden;
+    min-height: 18px;
+  }
+  .bc-laser {
+    position: absolute; top: 50%; left: 5%; right: 5%;
+    height: 1.5px; background: rgba(210,40,40,0.9);
+    transform: translateY(-50%);
+  }
+  .bc-corner {
+    position: absolute; width: 5px; height: 5px;
+    border-color: rgba(50,190,70,0.75); border-style: solid;
+  }
+  .bc-tl { top: 2px;    left: 2px;  border-width: 1.5px 0 0 1.5px; }
+  .bc-tr { top: 2px;    right: 2px; border-width: 1.5px 1.5px 0 0; }
+  .bc-bl { bottom: 2px; left: 2px;  border-width: 0 0 1.5px 1.5px; }
+  .bc-br { bottom: 2px; right: 2px; border-width: 0 1.5px 1.5px 0; }
+  
+  /* ─────────────────────────────────────────────
+     BOTTOM PANEL LAYOUT
+     ───────────────────────────────────────────── */
+  .bottom-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  /* Bottom-row device blocks — identical to right-col tray-dev */
+  .dev-block.bottom-dev {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+      margin-left: 20px;
+  
+  }
+  
+  .pin-pad-wrap-bottom {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+  }
+  
+  /* ─────────────────────────────────────────────
+     PIN PAD
+     ───────────────────────────────────────────── */
+  .pin-pad-wrapper {
+    min-height: 100px;
+    padding: 2px 4px 4px;
+  }
+  
+  .pin-pad {
+    display: flex; 
+    flex-direction: row; 
+    gap: 3px;
+    border: 2px solid #7a7e86;
+    background: #b9bcc4;
+    box-shadow: inset 0 0 0 2px #d8d9dd;
+    padding: 4px;
+  }
+  
+  .key-col { display: flex; flex-direction: column; gap: 3px; }
+  
+  .key-col-nums button  { min-width: 40px; min-height: 38px; }
+  .key-col-fkeys button { min-width: 40px; min-height: 38px; }
+  .key-col-word button  { min-width: 60px; min-height: 38px; }
+  
+  .key-col-nums .num-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+  }
+  
+  .pin-pad button {
+    border: 1px solid #7d8086;
+    background: linear-gradient(#e4e4e4, #c6c6c6);
+    color: #000000;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 0 2px;
+    transition: background 0.1s, transform 0.08s, box-shadow 0.08s;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .pin-pad button:hover {
+    background: linear-gradient(#f0f0f0, #d8d8d8);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7);
+    transform: translateY(-1px);
+  }
+  .pin-pad button:active {
+    background: linear-gradient(#b8b8b8, #d0d0d0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2), inset 0 2px 4px rgba(0,0,0,0.2);
+    transform: translateY(1px);
+  }
+  .pin-pad .fn       { font-size: 18px;  font-weight: 900; text-transform: uppercase; }
+  .pin-pad .cancel   { color: #bd2520; }
+  .pin-pad .clear    { color: #ff6600; }
+  .pin-pad .enter    { color: #1f6e2a; }
+  .pin-pad .help     { color: #14507a; }
+  .pin-pad .fkey     { color: #01002e; font-size: 16px; }
+  .pin-pad .blank {
+    background: linear-gradient(#d0d0d0, #b8b8b8);
+    border-color: #9a9a9a;
+    cursor: default;
+    pointer-events: none;
+  }
+  .pin-pad .blank.dot {
+    font-size: 14px;
+    color: #30343b;
+    pointer-events: auto;
+    cursor: default;
+  }
+  
+  /* --- FIX: Stretch bottom panel devices safely --- */
+
+/* Bottom panel clusters take equal space */
+.panel-bottom .bottom-cluster {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stretch bottom devices only */
+.panel-bottom .bottom-dev,
+.panel-bottom .tray-dev {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+}
+
+
+  /* ─────────────────────────────────────────────
+     ABSENT DEVICE OVERLAY
+     ───────────────────────────────────────────── */
+  .absent-overlay {
+    display: none;
+    position: absolute; inset: 0;
+    align-items: center; justify-content: center;
+    z-index: 5; pointer-events: none;
+    border-radius: inherit;
+  }
+  .absent-overlay svg {
+    width: 28px; height: 28px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+  }
+  .sub-absent svg { width: 22px; height: 22px; }
+  
+  [data-device-absent]                        { opacity: 0.38; }
+  [data-device-absent] > .absent-overlay      { display: flex; opacity: calc(1 / 0.38); }
+  [data-sub-absent]                           { opacity: 0.38; }
+  [data-sub-absent] > .absent-overlay         { display: flex; opacity: calc(1 / 0.38); }
+  
+  /* ──────────────────────────────────────
+     CONTEXT MENU
+     ───────────────────────────────────────────── */
+  .ctx-menu {
+    position: fixed;
+    z-index: 99000;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.35);
+    min-width: 190px;
+    padding: 2px 0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 13px;
+    user-select: none;
+  }
+  .ctx-item {
+    position: relative;
+    padding: 5px 28px 5px 14px;
+    cursor: pointer;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+  .ctx-item:hover, .ctx-item.ctx-hover { background: #0078d7; color: #fff; }
+  .ctx-item.ctx-disabled { color: #aaa; cursor: default; }
+  .ctx-item.ctx-disabled:hover { background: transparent; color: #aaa; }
+  .ctx-separator { height: 1px; background: #ccc; margin: 3px 0; }
+  .ctx-arrow { font-size: 10px; margin-left: 10px; flex-shrink: 0; }
+  
+  /* ─────────────────────────────────────────────
+     TOAST / HIDDEN
+     ───────────────────────────────────────────── */
+  .controls-hidden { display: none !important; }
+  
+  .ctx-absent-toast {
+    position: fixed;
+    z-index: 99100;
+    background: #2a2a2e;
+    color: #f0f0f0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  .ctx-absent-toast.fade-out { opacity: 0; }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     FALLBACK PANEL  (twocol / small modes)
+     Separate from lshape DOM — completely independent layout.
+  
+     Structure:
+       .fb-panel                   ← fixed, left:--sw, exactly 100vh tall
+         .fb-device-grid           ← flex-1 row, fills all space above pin pad
+           .fb-col.fb-col-a        ← left device column, space-evenly
+           .fb-col.fb-col-b        ← right device column, space-evenly
+         .fb-pinpad-row             ← flex-shrink:0, full width, pin pad centred
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* ── Base: always hidden; shown only in twocol / small ── */
+  .fb-panel {
+    display:         none;
+    position:        fixed;
+    top:             0;
+    left:            var(--sw);
+    width:           calc(2 * var(--rcw));
+    /* Exactly viewport height — hard stop, no overflow */
+    height:          100vh;
+    max-height:      100vh;
+    background:      var(--panel-bg);
+    z-index:         20;
+    flex-direction:  column;
+    overflow:        hidden;   /* clips anything that would exceed 100vh */
+  }
+  
+  /* ── Device grid: row of two columns, fills space ABOVE pin pad ── */
+  .fb-device-grid {
+    display:        flex;
+    flex-direction: row;
+    flex:           1 1 0;      /* grow AND shrink */
+    min-height:     0;          /* critical: allows flex child to shrink below content size */
+    overflow:       hidden;
+  }
+  
+  /* ── One device column ── */
+  .fb-col {
+    flex:            1 1 0;
+    display:         flex;
+    flex-direction:  column;
+    justify-content: flex-start;   /* even gaps between all devices */
+    padding:         8px 6px;
+    overflow:        hidden;
+    min-height:      0;
+    min-width:       0;
+  }
+  
+  /* Every device block inside fallback: resets global margin, shrinks freely */
+  .fb-col .dev-block {
+    flex-shrink:  1;
+    min-height:   0;
+    margin-top:   0;    /* override .dev-block { margin-top: 20px } */
+    width:        100%;
+  }
+  
+  /* Card reader: a bit more natural height, still shrinks */
+  .fb-col .card-reader-block {
+    flex-shrink:  2;
+    min-height:   70px;
+  }
+  
+  /* Tray slots compress gracefully */
+  .fb-col .tray-slot {
+    height:     20px;
+    min-height: 12px;
+  }
+  
+  /* Tray-dev: height driven by available space, not a fixed value */
+  .fb-col .tray-dev {
+    height:     auto;
+    min-height: 34px;
+  }
+  
+  /* ── Pin pad row: anchored at the bottom, never grows or shrinks ── */
+  .fb-pinpad-row {
+    flex-shrink:     0;          /* never compress this row */
+    flex-grow:       0;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    padding:         8px 8px 10px;
+    border-top:      2px solid rgba(0,0,0,0.20);
+    background:      var(--panel-bg);
+  }
+  
+  .fb-pin-pad-wrapper {
+    position:        relative;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+  }
+  
+  /* ── Show in twocol / small ── */
+  [data-layout="twocol"] .fb-panel,
+  [data-layout="small"]  .fb-panel { display: flex; }
+  
+  /* ── Hide OLD col panels in twocol / small ── */
+  [data-layout="twocol"] .panel-col1,
+  [data-layout="twocol"] .panel-col2,
+  [data-layout="small"]  .panel-col1,
+  [data-layout="small"]  .panel-col2 { display: none !important; }
+  
+  /* ── lshape: never show fallback ── */
+  [data-layout="lshape"] .fb-panel  { display: none !important; }
+  /* ─────────────────────────────────────────────────────────────── */
+  /* COMPLETE CSS */
+  /* ═══════════════════════════════════════════════════════════════
+     ATM SIMULATOR — STYLES
+     ═══════════════════════════════════════════════════════════════ */
+  
+  :root {
+    --panel-bg:   #888b8f;
+    --charcoal:   #404046;
+    --green:      #3da949;
+  
+    /* Fixed screen dimensions — NEVER change */
+    --sw:  1024px;
+    --sh:  768px;
+  
+    /* Right column width — matches layout.js RC=180 */
+    --rcw:198px;
+  
+    /* Bottom panel height — matches layout.js BRH=160 */
+    --brh:200px;
+  
+    /* Uniform device height — right-col & bottom-row identical */
+    --dev-h: 52px;
+  
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    color: #2f2f35;
+  }
+  
+  *, *::before, *::after { box-sizing: border-box; }
+  
+  html, body {
+    margin: 0; padding: 0;
+    background: transparent;
+    overflow: hidden;
+  }
+  
+  /* ─────────────────────────────────────────────
+     SCREEN FRAME (always top-left)
+     ───────────────────────────────────────────── */
+  .screen-frame {
+    position: fixed;
+    top: 0; left: 0;
+    width:  var(--sw);
+    height: var(--sh);
+    border: 4px solid var(--charcoal);
+    border-radius: 0 8px 8px 0;
+    background: transparent;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 0 3px var(--panel-bg);
+  }
+  
+  /* ─────────────────────────────────────────────
+     PANEL BASE
+     ───────────────────────────────────────────── */
+  .panel {
+    position: fixed;
+    background: var(--panel-bg);
+    z-index: 20;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+  }
+  
+  /* ─────────────────────────────────────────────
+     RIGHT COLUMN 1
+     ───────────────────────────────────────────── */
+  .panel-col1 {
+    top: 0;
+    left: var(--sw);
+    width: var(--rcw);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px;
+    align-items: center;
+  }
+  
+  /* ─────────────────────────────────────────────
+     RIGHT COLUMN 2  (twocol + small only)
+     ───────────────────────────────────────────── */
+  .panel-col2 {
+    top: 0;
+    left: calc(var(--sw) + var(--rcw));
+    width: var(--rcw);
+    bottom: 0;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding:5px 8px;
+  }
+  
+  /* ─────────────────────────────────────────────
+     BOTTOM PANEL  (lshape only)
+     Constrained to screen width only — no overlap with right col
+     ───────────────────────────────────────────── */
+  .panel-bottom {
+    top: var(--sh);
+    left: 0;
+    width: var(--sw);          /* exactly inner screen width */
+    height: var(--brh);
+    display: none;
+    flex-direction: row;
+    gap: 6px;
+    padding: 10px 10px 8px;
+    align-items: flex-start;
+  }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     LAYOUT MODES
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* ── lshape ── */
+  [data-layout="lshape"] body {
+    width:  calc(var(--sw) + var(--rcw));
+    height: calc(var(--sh) + var(--brh));
+    overflow: hidden;
+  }
+  [data-layout="lshape"] .panel-col1 {
+    top: 0;
+    bottom: auto;
+    height: calc(var(--sh) + var(--brh));
+    overflow-y: hidden;
+  }
+  [data-layout="lshape"] .panel-col2 { display: none; }
+  [data-layout="lshape"] .panel-bottom { display: flex; }
+  [data-layout="lshape"] .col1-lshape-only  { display: flex; flex-direction: column; }
+  [data-layout="lshape"] .col1-twocol-only  { display: none !important; }
+  [data-layout="lshape"] .col1-spacer       { margin-top: 8px;}
+  /* lshape only: spacing between consecutive col1 device blocks */
+  [data-layout="lshape"] .panel-col1 > * + * { margin-top: 40px; }
+  /* lshape only: spacing between stacked devices inside each bottom cluster */
+  [data-layout="lshape"] .panel-bottom .bottom-cluster > .dev-block + .dev-block { margin-top: 40px; }
+  
+  /* ── twocol ── */
+  [data-layout="twocol"] body {
+    width:  calc(var(--sw) + 2 * var(--rcw));
+    height: 100vh;
+    overflow: hidden;
+  }
+  [data-layout="twocol"] .panel-col1 { bottom: 0; }
+  [data-layout="twocol"] .panel-col2 { display: flex; }
+  [data-layout="twocol"] .panel-bottom { display: none; }
+  [data-layout="twocol"] .col1-lshape-only  { display: none !important; }
+  [data-layout="twocol"] .col1-twocol-only  { display: flex; flex-direction: column; }
+  [data-layout="twocol"] .col1-spacer       { margin-top: auto; }
+  
+  /* ── small ── */
+  [data-layout="small"] html { overflow-y: auto; overflow-x: hidden; }
+  [data-layout="small"] body {
+    width:  calc(var(--sw) + 2 * var(--rcw));
+    height: var(--sh);
+    min-height: var(--sh);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  [data-layout="small"] .screen-frame  { position: absolute; }
+  [data-layout="small"] .panel         { position: absolute; }
+  [data-layout="small"] .panel-col1    { bottom: 0; min-height: var(--sh); }
+  [data-layout="small"] .panel-col2    { display: flex; min-height: var(--sh); }
+  [data-layout="small"] .panel-bottom  { display: none; }
+  [data-layout="small"] .col1-lshape-only  { display: none !important; }
+  [data-layout="small"] .col1-twocol-only  { display: flex; flex-direction: column; }
+  [data-layout="small"] .col1-spacer       { margin-top: auto; }
+  
+  .panel-col1.dev-block,.panel-col1.tray-dev{
+      margin-top: 4px;
+  }
+  /* ─────────────────────────────────────────────
+     DEV BLOCK  (all panel device cards)
+     Same color as panel — blends in, faint edge cue
+     ───────────────────────────────────────────── */
+  .dev-block {
+    position: relative;
+    border-radius: 4px;
+    background: var(--panel-bg);
+    border: 1px solid transparent;
+    box-shadow: none;
+    width: 100%;
+    padding: 4px 6px 6px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    cursor: grab;
+      margin-top: 0;
+  
+  }
+  .dev-block:active { cursor: grabbing; }
+  
+  /* ── Dragging state ── */
+  [data-draggable-control]:not(.is-dragging) {
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+  }
+  [data-draggable-control].is-dragging {
+    z-index: 9999 !important;
+    border: 2px dashed rgba(255,255,255,0.75) !important;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5) !important;
+    cursor: grabbing !important;
+  }
+  [data-draggable-control] {
+    touch-action: none;
+    will-change: transform;
+    position: relative;
+  }
+  [data-draggable-control][data-free-drag="1"] { z-index: 35; }
+  .drag-handle { display: none !important; }
+  
+  /* ─────────────────────────────────────────────
+     DEVICE NAME LABEL
+     ───────────────────────────────────────────── */
+  .dev-name-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 4px;
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0,0,0,0.6);
+  }
+  
+  /* ─────────────────────────────────────────────
+     TRAY SLOT  — shared by right-col & bottom-row
+     Half-height, thin inner slit, lighter trapezoids
+     ───────────────────────────────────────────── */
+  .tray-slot {
+    position: relative;
+    width: 100%;
+    height: 22px;
+    align-self: center;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #c8cacc 0%, #9a9c9e 100%);
+    overflow: hidden;
+    margin-top: 2px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+  .tray-slot::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, #b8babc 0%, #909294 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 91% 30%, 9% 30%);
+  }
+  .tray-slot::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(180deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 4px),
+      linear-gradient(180deg, #a0a2a4 0%, #c8cacc 100%);
+    clip-path: polygon(9% 62%, 91% 62%, 100% 100%, 0% 100%);
+  }
+  .tray-slot-inner {
+    position: absolute; top: 30%; left: 9%; right: 9%; height: 22%;
+    background: #0e0f12;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.95), inset 0 -1px 1px rgba(0,0,0,0.5);
+    z-index: 2;
+  }
+  .tray-slot-left {
+    position: absolute; top: 0; left: 0; width: 9%; height: 100%;
+    background: linear-gradient(90deg, #a8aaac 0%, #888a8c 100%);
+    clip-path: polygon(0% 0%, 100% 30%, 100% 62%, 0% 100%);
+    z-index: 1;
+  }
+  .tray-slot-right {
+    position: absolute; top: 0; right: 0; width: 9%; height: 100%;
+    background: linear-gradient(90deg, #888a8c 0%, #a8aaac 100%);
+    clip-path: polygon(0% 30%, 100% 0%, 100% 100%, 0% 62%);
+    z-index: 1;
+  }
+  
+  /* ─────────────────────────────────────────────
+     TRAY DEVICE — right column
+     Exact same height as bottom-dev
+     ───────────────────────────────────────────── */
+  .tray-dev {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+    width: 160px;
+  }
+  
+  /* ─────────────────────────────────────────────
+     CARD READER BLOCK
+     ───────────────────────────────────────────── */
+  .card-reader-block {
+    min-height: 100px;
+    height: auto;
+    background: var(--panel-bg);
+    border: 1px solid transparent;
+    cursor: grab;
+  }
+  .card-reader-block:active { cursor: grabbing; }
+  .cr-slot-housing {
+    margin: 2px 3px 2px;
+    background: linear-gradient(180deg, #a8aaae 0%, #c8cace 30%, #b0b2b6 70%, #909294 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.4);
+    border-radius: 3px;
+    border: 1px solid #7a7c80;
+    padding: 3px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .cr-slot-top-face {
+    width: 100%; height: 16px;
+    background: #4f5258;
+    border-radius: 3px;
+    border: 1.5px solid #5d6068;
+    margin-top: 3px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+  }
+  .cr-slot-slit {
+    width: 70%; height: 3px;
+    background: #06080c;
+    border-radius: 1px;
+  }
+  .cr-slot-arrow-hint { font-size: 7px; color: #000; }
+  .cr-tap-hint {
+    display: block;
+    text-align: center;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    margin: 2px 0 1px;
+  }
+  .card-ccr-icons {
+    display: flex; flex-direction: row;
+    gap: 6px; align-items: center; justify-content: center;
+    padding: 3px 3px 2px; flex: 1;
+  }
+  .card-sub-icon {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    flex: 1; cursor: pointer;
+  }
+  .card-sub-icon .icon    { width: 36px; height: 42px; stroke-width: 1.8; }
+  .card-sub-icon .ccr-icon { width: 44px; height: 42px; }
+  
+  /* ─────────────────────────────────────────────
+     ID SCANNER — plain dark slot, no LED row
+     ───────────────────────────────────────────── */
+  .id-scanner-block {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+  }
+  
+  .id-scanner-slot{
+    width: 100%; height: 20px;
+    background: #4f5258;
+    border-radius: 3px;
+    border: 1.5px solid #5d6068;
+    margin-top: 3px;
+    align-items: center; justify-content: center;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+  }
+  .id-slot-slit {
+    width: 80%; height: 4px;
+    background: #06080c;
+    border-radius: 1px;
+    align-items: center;
+    margin: 7px 0 0 20px;
+  }
+  
+  /* hide old LED and slot-face if they appear */
+  .slot-led-row { display: none; }
+  
+  /* ─────────────────────────────────────────────
+     BARCODE READER
+     Same height as tray-dev
+     ───────────────────────────────────────────── */
+  .barcode-block {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+  }
+  .barcode-scanner-window {
+    margin: 2px 4px 0; flex: 1;
+    background: #181c24; border-radius: 3px;
+    border: 1.5px solid #2a3040;
+    position: relative; overflow: hidden;
+    min-height: 18px;
+  }
+  .bc-laser {
+    position: absolute; top: 50%; left: 5%; right: 5%;
+    height: 1.5px; background: rgba(210,40,40,0.9);
+    transform: translateY(-50%);
+  }
+  .bc-corner {
+    position: absolute; width: 5px; height: 5px;
+    border-color: rgba(50,190,70,0.75); border-style: solid;
+  }
+  .bc-tl { top: 2px;    left: 2px;  border-width: 1.5px 0 0 1.5px; }
+  .bc-tr { top: 2px;    right: 2px; border-width: 1.5px 1.5px 0 0; }
+  .bc-bl { bottom: 2px; left: 2px;  border-width: 0 0 1.5px 1.5px; }
+  .bc-br { bottom: 2px; right: 2px; border-width: 0 1.5px 1.5px 0; }
+  
+  /* ─────────────────────────────────────────────
+     BOTTOM PANEL LAYOUT
+     ───────────────────────────────────────────── */
+  .bottom-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  /* Bottom-row device blocks — identical to right-col tray-dev */
+  .dev-block.bottom-dev {
+    height: var(--dev-h);
+    min-height: var(--dev-h);
+    justify-content: center;
+      margin-left: 20px;
+  
+  }
+  
+  .pin-pad-wrap-bottom {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+  }
+  
+  /* ─────────────────────────────────────────────
+     PIN PAD
+     ───────────────────────────────────────────── */
+  .pin-pad-wrapper {
+    min-height: 100px;
+    padding: 2px 4px 4px;
+  }
+  
+  .pin-pad {
+    display: flex; 
+    flex-direction: row; 
+    gap: 3px;
+    border: 2px solid #7a7e86;
+    background: #b9bcc4;
+    box-shadow: inset 0 0 0 2px #d8d9dd;
+    padding: 4px;
+  }
+  
+  .key-col { display: flex; flex-direction: column; gap: 3px; }
+  
+  .key-col-nums button  { min-width: 40px; min-height: 38px; }
+  .key-col-fkeys button { min-width: 40px; min-height: 38px; }
+  .key-col-word button  { min-width: 60px; min-height: 38px; }
+  
+  .key-col-nums .num-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+  }
+  
+  .pin-pad button {
+    border: 1px solid #7d8086;
+    background: linear-gradient(#e4e4e4, #c6c6c6);
+    color: #000000;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 0 2px;
+    transition: background 0.1s, transform 0.08s, box-shadow 0.08s;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .pin-pad button:hover {
+    background: linear-gradient(#f0f0f0, #d8d8d8);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.7);
+    transform: translateY(-1px);
+  }
+  .pin-pad button:active {
+    background: linear-gradient(#b8b8b8, #d0d0d0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2), inset 0 2px 4px rgba(0,0,0,0.2);
+    transform: translateY(1px);
+  }
+  .pin-pad .fn       { font-size: 15px;  font-weight: 800; text-transform: uppercase; }
+  .pin-pad .cancel   { color: #bd2520; }
+  .pin-pad .clear    { color: #ca6c00; }
+  .pin-pad .enter    { color: #0c791a; }
+  .pin-pad .help     { color: #0f5b92; }
+  .pin-pad .fkey     { color: #1a026e; font-size: 15px; }
+  .pin-pad .blank {
+    background: linear-gradient(#d0d0d0, #b8b8b8);
+    border-color: #9a9a9a;
+    cursor: default;
+    pointer-events: none;
+  }
+  .pin-pad .blank.dot {
+    font-size: 18px;
+    color: #000000;
+    pointer-events: auto;
+    cursor: default;
+  }
+  
+  /* ─────────────────────────────────────────────
+     ABSENT DEVICE OVERLAY
+     ───────────────────────────────────────────── */
+  .absent-overlay {
+    display: none;
+    position: absolute; inset: 0;
+    align-items: center; justify-content: center;
+    z-index: 5; pointer-events: none;
+    border-radius: inherit;
+  }
+  .absent-overlay svg {
+    width: 28px; height: 28px;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+  }
+  .sub-absent svg { width: 22px; height: 22px; }
+  
+  [data-device-absent]                        { opacity: 0.38; }
+  [data-device-absent] > .absent-overlay      { display: flex; opacity: calc(1 / 0.38); }
+  [data-sub-absent]                           { opacity: 0.38; }
+  [data-sub-absent] > .absent-overlay         { display: flex; opacity: calc(1 / 0.38); }
+  
+  /* ──────────────────────────────────────
+     CONTEXT MENU
+     ───────────────────────────────────────────── */
+  .ctx-menu {
+    position: fixed;
+    z-index: 99000;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.35);
+    min-width: 190px;
+    padding: 2px 0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 13px;
+    user-select: none;
+  }
+  .ctx-item {
+    position: relative;
+    padding: 5px 28px 5px 14px;
+    cursor: pointer;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+  }
+  .ctx-item:hover, .ctx-item.ctx-hover { background: #0078d7; color: #fff; }
+  .ctx-item.ctx-disabled { color: #aaa; cursor: default; }
+  .ctx-item.ctx-disabled:hover { background: transparent; color: #aaa; }
+  .ctx-separator { height: 1px; background: #ccc; margin: 3px 0; }
+  .ctx-arrow { font-size: 10px; margin-left: 10px; flex-shrink: 0; }
+  
+  /* ─────────────────────────────────────────────
+     TOAST / HIDDEN
+     ───────────────────────────────────────────── */
+  .controls-hidden { display: none !important; }
+  
+  .ctx-absent-toast {
+    position: fixed;
+    z-index: 99100;
+    background: #2a2a2e;
+    color: #f0f0f0;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding: 6px 14px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  .ctx-absent-toast.fade-out { opacity: 0; }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     FALLBACK PANEL  (twocol / small modes)
+     Separate from lshape DOM — completely independent layout.
+  
+     Structure:
+       .fb-panel                   ← fixed, left:--sw, exactly 100vh tall
+         .fb-device-grid           ← flex-1 row, fills all space above pin pad
+           .fb-col.fb-col-a        ← left device column, space-evenly
+           .fb-col.fb-col-b        ← right device column, space-evenly
+         .fb-pinpad-row             ← flex-shrink:0, full width, pin pad centred
+     ═══════════════════════════════════════════════════════════════ */
+  
+  /* ── Base: always hidden; shown only in twocol / small ── */
+  .fb-panel {
+    display:         none;
+    position:        fixed;
+    top:             0;
+    left:            var(--sw);
+    width: calc(2 * var(--rcw-fallback));
+    /* Exactly viewport height — hard stop, no overflow */
+    height:          100vh;
+    max-height:      100vh;
+    background:      var(--panel-bg);
+    z-index:         20;
+    flex-direction:  column;
+    overflow:        hidden;   /* clips anything that would exceed 100vh */
+  }
+  
+  /* ── Device grid: row of two columns, fills space ABOVE pin pad ── */
+  .fb-device-grid {
+    display:        flex;
+    flex-direction: row;
+    flex:           1 1 0;      /* grow AND shrink */
+    min-height:     0;          /* critical: allows flex child to shrink below content size */
+    overflow:       hidden;
+  }
+  
+  /* ── One device column ── */
+  /* === Fallback Grid: Evenly Spaced Layout === */
+  .fb-col {
+      display: flex;
+      flex-direction: column;
+  
+      width: var(--rcw-fallback);
+  
+      /* Even vertical distribution */
+      justify-content: flex-start !important;
+  
+      /* Balanced spacing */
+      gap: 6px !important;
+  
+      padding: 6px 8px !important;
+  
+      /* Allow shrinking */
+      min-height: 0 !important;
+      overflow: hidden;
+  }
+  
+  /* Ensure devices shrink instead of overflow */
+  .fb-col .dev-block {
+      flex-shrink: 1 !important;
+      min-height: 0 !important;
+      height: auto !important;
+  }
+  
+  /* Card reader compresses more naturally */
+  .fb-col .card-reader-block {
+      flex-shrink: 3 !important;
+      min-height: 70px !important;
+  }
+  
+  /* Tray slot smaller for compact layout */
+  .fb-col .tray-slot {
+      height: 18px !important;
+      min-height: 12px !important;
+  }
+  
+  /* Keep fallback panel fixed to screen height */
+  .fb-panel {
+      height: var(--sh) !important; /* 768px */
+      max-height: var(--sh) !important;
+  }
+  
+  
+  /* Tray-dev: height driven by available space, not a fixed value */
+  .fb-col .tray-dev {
+    height:     auto;
+    min-height: 34px;
+  }
+  
+  /* ── Pin pad row: anchored at the bottom, never grows or shrinks ── */
+  .fb-pinpad-row {
+    flex-shrink:     0;          /* never compress this row */
+    flex-grow:       0;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    padding:         8px 8px 10px;
+    border-top:      2px solid rgba(0,0,0,0.20);
+    background:      var(--panel-bg);
+  }
+  
+  .fb-pin-pad-wrapper {
+    position:        relative;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+  }
+  
+  /* ── Show in twocol / small ── */
+  [data-layout="twocol"] .fb-panel,
+  [data-layout="small"]  .fb-panel { display: flex; }
+  
+  /* ── Hide OLD col panels in twocol / small ── */
+  [data-layout="twocol"] .panel-col1,
+  [data-layout="twocol"] .panel-col2,
+  [data-layout="small"]  .panel-col1,
+  [data-layout="small"]  .panel-col2 { display: none !important; }
+  
+  /* ── lshape: never show fallback ── */
+  [data-layout="lshape"] .fb-panel  { display: none !important; }
+  /* ─────────────────────────────────────────────────────────────── */
+  
+  
+  /* === Fallback Compact Fixes Added === */
+  .fb-col {
+      /* justify-content: flex-start !important; */
+      
+      justify-content: flex-start !important;
+      gap: 4px !important;
+      padding: 4px 6px !important;
+  }
+  .fb-col .dev-block,
+  .fb-col .tray-dev,
+  .fb-col .barcode-block,
+  .fb-col .id-scanner-block {
+      min-height: 0 !important;
+      height: auto !important;
+      flex-shrink: 1 !important;
+  
+      transform: none !important;              /* proportional shrink ~12% */
+      transform-origin: top center;
+  }
+  .fb-col .card-reader-block {
+      min-height: 60px !important;
+      flex-shrink: 3 !important;
+  }
+  .fb-panel {
+      height: var(--sh) !important;
+      max-height: var(--sh) !important;
+  }
+  
+  .fb-col .tray-slot {
+      height: 16px !important;
+  }
+  
+  
+  
+  /* === Fallback Grid: Evenly Spaced Layout (Updated Option B) === */
+  .fb-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between !important;
+      gap: 6px !important;
+      padding: 6px 8px !important;
+      min-height: 0 !important;
+      overflow: hidden;
+  }
+  .fb-col .dev-block,
+  .fb-col .tray-dev,
+  .fb-col .barcode-block,
+  .fb-col .id-scanner-block {
+      flex-shrink: 1 !important;
+      min-height: 0 !important;
+      height: auto !important;
+  }
+  .fb-col .card-reader-block {
+      flex-shrink: 3 !important;
+      min-height: 70px !important;
+  }
+  .fb-col .tray-slot {
+      height: 18px !important;
+      min-height: 12px !important;
+  }
+  .fb-panel {
+      height: calc(var(--sh) + 3px) !important;
+      max-height: calc(var(--sh) + 3px) !important;
+  }
+  .fb-col .dev-name-label {
+      font-size: 11px !important;
+      margin-bottom: 4px !important;
+        font-weight: 600;
+  }
+  
+  /* ==== Fallback: Remove rounded screen corners ==== */
+  [data-layout="twocol"] .screen-frame,
+  [data-layout="small"] .screen-frame {
+      border-radius: 0 !important;
+  }
+  
+  [data-layout="twocol"] .fb-col .dev-block,
+  [data-layout="small"] .fb-col .dev-block {
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+  }
+  
+  [data-layout="lshape"] .panel-bottom .dev-block {
+      height: var(--dev-h) !important;
+      min-height: var(--dev-h) !important;
+      max-height: var(--dev-h) !important;
+  }
+  
+  /* --- Prevent fallback flexbox from reflowing during drag --- */
+  .fb-col.freeze-flex {
+      /* Lock height so flex cannot redistribute gaps */
+      height: auto !important;
+  
+      /* Remove justify-content space-between adjustments */
+      justify-content: flex-start !important;
+  
+      /* Prevent shifting when ghost is inserted */
+      align-items: flex-start !important;
+  
+      /* STOP flex shrink & grow movements */
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+  }
+  
+  .fb-col.freeze-flex .dev-block {
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+  }
+  
+  /* Freeze column spacing during drag */
+  .fb-col.freeze-flex {
+      justify-content: flex-start !important; /* stops vertical redistribution */
+  }
+  
+  /* Ensure children do not resize during drag */
+  .fb-col.freeze-flex > .dev-block {
+      flex-shrink: 0 !important;
+  }
+  
+  /* ================================================
+     FINAL FIX — completely freeze fallback layout
+     ================================================ */
+  
+  /* Freeze the entire fallback grid */
+  .fb-device-grid.freeze-flex {
+      height: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
+  
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+  }
+  
+  /* Freeze both fallback columns */
+  .fb-col.freeze-flex {
+      height: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
+  
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+  
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+  }
+  
+  /* Freeze each device so heights cannot shrink/expand */
+  .fb-col.freeze-flex .dev-block {
+      height: auto !important;
+      min-height: inherit !important;
+      max-height: inherit !important;
+  
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+  }
+  
+  /* === Fallback mode — shrink PIN pad by 10% === */
+  [data-layout="twocol"] #keypad-fallback,
+  [data-layout="small"] #keypad-fallback {
+      transform: scale(0.85);
+      transform-origin: top center;
+  }
+  
+  /* ===== Hard Freeze Layout During Drag (Final Fix) ===== */
+  
+  .fb-col.freeze-flex,
+  .fb-device-grid.freeze-flex {
+      display: flex !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      min-height: 100% !important;
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+      justify-content: flex-start !important;
+      align-items: flex-start !important;
+  }
+  
+  .fb-col.freeze-flex > .dev-block {
+      flex-grow: 0 !important;
+      flex-shrink: 0 !important;
+      height: auto !important;
+      max-height: none !important;
+  }
+  
+  /* === Hard fix: center ID scanner slit in fallback === */
+  [data-layout="twocol"] .fb-col .id-slot-slit,
+  [data-layout="small"] .fb-col .id-slot-slit {
+      margin-left: 5px;
+      width: 90%;
+  }
+  
+  
+  
+  /* ═══════════════════════════════════════════════════════════════════════
+       Context menu actions
+       ═══════════════════════════════════════════════════════════════════════*/
+       
+  /* ─────────────────────────────────────────────
+     MODAL OVERLAY
+     ───────────────────────────────────────────── */
+  #dlg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200000;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+  }
+  
+  /* ─────────────────────────────────────────────
+     DIALOG BOX
+     ───────────────────────────────────────────── */
+  .dlg-box {
+    background: #f4f4f6;
+    border: 1px solid #8a8c96;
+    border-radius: 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    min-width: 480px;
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 13px;
+    color: #1e1e24;
+    overflow: hidden;
+    animation: dlg-pop 0.15s ease-out;
+  }
+  .dlg-box-narrow { min-width: 320px; max-width: 380px; }
+  
+  @keyframes dlg-pop {
+    from { transform: scale(0.92); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  
+  /* ── Header ── */
+  .dlg-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #3a3d4a 0%, #52566a 100%);
+    color: #fff;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+  .dlg-title {
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dlg-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .dlg-close:hover { color: #fff; }
+  
+  /* ── Body ── */
+  .dlg-body {
+    padding: 16px 18px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .dlg-row {
+    display: flex;
+    gap: 16px;
+  }
+  .dlg-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .dlg-label {
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4a4c5e;
+  }
+  .dlg-select {
+    border: 1px solid #b0b2be;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 12px;
+    font-family: inherit;
+    padding: 2px 4px;
+    outline: none;
+    cursor: pointer;
+    min-height: 90px;
+  }
+  .dlg-select:focus { border-color: #0078d7; }
+  .dlg-input {
+    border: 1px solid #b0b2be;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 12px;
+    font-family: inherit;
+    padding: 6px 8px;
+    outline: none;
+    width: 100%;
+  }
+  .dlg-input:focus { border-color: #0078d7; }
+  .dlg-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dlg-hint {
+    font-size: 12px;
+    color: #5a5c6e;
+    margin: 0;
+  }
+  .dlg-body-msg {
+    font-size: 13px;
+    color: #2a2c38;
+    margin: 0;
+    line-height: 1.55;
+  }
+  .dlg-body-msg strong { color: #0a4a8c; }
+  .dlg-body-msg em     { color: #6a3aaf; font-style: normal; font-weight: 600; }
+  
+  /* ── Section title ── */
+  .dlg-section-title {
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #4a4c5e;
+    border-bottom: 1px solid #d0d2de;
+    padding-bottom: 4px;
+  }
+  
+  /* ── Radio group ── */
+  .dlg-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 4px;
+  }
+  .dlg-radio {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .dlg-radio input[type="radio"] { accent-color: #0078d7; cursor: pointer; }
+  
+  /* ── Checkbox group ── */
+  .dlg-check-group {
+    display: flex;
+    gap: 24px;
+    padding-left: 4px;
+  }
+  .dlg-check {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .dlg-check input[type="checkbox"] { accent-color: #0078d7; cursor: pointer; }
+  
+  /* ── Footer ── */
+  .dlg-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 10px 18px 14px;
+    border-top: 1px solid #d8dae8;
+    background: #ececf0;
+  }
+  
+  /* ── Buttons ── */
+  .dlg-btn {
+    padding: 6px 20px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.12s, box-shadow 0.12s, transform 0.08s;
+    user-select: none;
+  }
+  .dlg-btn:active { transform: translateY(1px); }
+  
+  .dlg-btn-primary {
+    background: #0078d7;
+    color: #fff;
+    border-color: #005fa3;
+    box-shadow: 0 2px 4px rgba(0,120,215,0.3);
+  }
+  .dlg-btn-primary:hover {
+    background: #006bc2;
+    box-shadow: 0 3px 8px rgba(0,120,215,0.45);
+  }
+  .dlg-btn-secondary {
+    background: #e0e2ea;
+    color: #2a2c38;
+    border-color: #b0b4c8;
+  }
+  .dlg-btn-secondary:hover { background: #d0d2de; }
+  .dlg-btn-danger {
+    background: #c0392b;
+    color: #fff;
+    border-color: #922b21;
+  }
+  .dlg-btn-danger:hover { background: #a93226; }
+  
+  /* ─────────────────────────────────────────────
+     TOAST NOTIFICATIONS
+     ───────────────────────────────────────────── */
+  .atm-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 300000;
+    min-width: 240px;
+    max-width: 420px;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    color: #fff;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.35s ease;
+    word-break: break-word;
+  }
+  .atm-toast.fade-out { opacity: 0; }
+  .atm-toast-success { background: #1e7e3a; border-left: 4px solid #12612a; }
+  .atm-toast-error   { background: #b5231a; border-left: 4px solid #8a1910; }
+  .atm-toast-warn    { background: #b87f00; border-left: 4px solid #8a6000; }
+  .atm-toast-info    { background: #0a5ea8; border-left: 4px solid #07437a; }
+  
+  /* Ensure preview containers have min height */
+  #dlg-cheque-preview-front, #dlg-cheque-preview-back {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .dlg-radio input[type="radio"] {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+  }
+  /* ═══════════════════════════════════════════════════════════════
+     COIN DEPOSITOR — Realistic slot panel
+     ═══════════════════════════════════════════════════════════════ */
+  .coin-dep-block {
+    min-height: 64px;
+    background: var(--panel-bg);
+  }
+  
+  .coin-dep-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px 4px 4px;
+    gap: 3px;
+  }
+  
+  .coin-dep-body {
+    width: 86%;
+    background: linear-gradient(180deg, #9a9da0 0%, #c2c5c8 35%, #b2b5b8 70%, #909294 100%);
+    border-radius: 3px;
+    border: 1px solid #6a6c6e;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+    padding: 5px 6px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .coin-dep-slit-housing {
+    width: 100%;
+    height: 28px;
+    background: linear-gradient(180deg, #555 0%, #444 40%, #333 100%);
+    border-radius: 3px;
+    border: 1.5px solid #3a3a3a;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* The vertical slit (coin insert opening) */
+  .coin-dep-slit {
+    width: 5px;
+    height: 18px;
+    background: #050608;
+    border-radius: 1px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.9), inset 0 0 2px rgba(0,0,0,1);
+    position: relative;
+  }
+  /* subtle light reflection around slit */
+  .coin-dep-slit::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -3px;
+    right: -3px;
+    bottom: -2px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px;
+  }
+  
+  .coin-dep-hint {
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+  }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     COIN DISPENSER — Realistic slot + tray
+     ═══════════════════════════════════════════════════════════════ */
+  .coin-disp-block {
+    min-height: 68px;
+    background: var(--panel-bg);
+  }
+  
+  .coin-disp-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px 4px 4px;
+    gap: 4px;
+  }
+  
+  /* Dispense slot bar — horizontal opening coins fall from */
+  .coin-disp-slot-bar {
+    width: 70%;
+    height: 10px;
+    background: linear-gradient(180deg, #b8babc 0%, #989a9c 50%, #b4b6b8 100%);
+    border-radius: 2px;
+    border: 1px solid #6e7072;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  /* The horizontal slit across the slot bar */
+  .coin-disp-slot-bar::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    transform: translateY(-50%);
+    background: #06080c;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.95);
+    border-radius: 1px;
+  }
+  
+  /* Output tray — angled like a coin catch bowl */
+  .coin-disp-tray {
+    width: 78%;
+    height: 26px;
+    align-self: center;
+    border-radius: 0 0 6px 6px;
+    background: linear-gradient(180deg, #c4c6c8 0%, #9e9fa1 100%);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+  .coin-disp-tray-left {
+    width: 10%;
+    background: linear-gradient(90deg, #a4a6a8 0%, #b8babc 100%);
+    clip-path: polygon(0% 0%, 100% 40%, 100% 100%, 0% 100%);
+  }
+  .coin-disp-tray-inner {
+    flex: 1;
+    background: linear-gradient(180deg, #a8aaac 0%, #bcbec0 100%);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+  }
+  .coin-disp-tray-right {
+    width: 10%;
+    background: linear-gradient(90deg, #b8babc 0%, #a4a6a8 100%);
+    clip-path: polygon(0% 40%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     RECEIPT PRINTER — paper emerges below slot
+     ═══════════════════════════════════════════════════════════════ */
+  .receipt-anim-overlay {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -1px;
+    z-index: 8;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    overflow: visible;
+  }
+  
+  /* ═══════════════════════════════════════════════════════════════
+     CARD READER — card slides in through slit
+     ═══════════════════════════════════════════════════════════════ */
+  .card-anim-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+/* ═══════════════════════════════════════════════════════════════
+   NEW ADDITIONS — Rocker Switch, Headphone, Sensors, Coin v2,
+   Cash animation fixes, Card animation fixes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────
+   ROCKER SWITCH + HEADPHONE ROW
+   ───────────────────────────────────────────── */
+.rocker-headphone-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 2px 2px;
+  flex-shrink: 0;
+}
+
+.rocker-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rocker-label-txt {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgb(255, 255, 255);
+  white-space: nowrap;
+}
+
+.rocker-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.rocker-track {
+  position: relative;
+  width: 62px;
+  height: 22px;
+  background: linear-gradient(180deg, #2a2c30 0%, #3a3d42 100%);
+  border-radius: 4px;
+  border: 2px solid #5a5c60;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  overflow: hidden;
+}
+
+.rocker-lbl-off,
+.rocker-lbl-on {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.678);
+  z-index: 1;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.rocker-thumb {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 26px;
+  height: 14px;
+  background: linear-gradient(180deg, #d0d2d4 0%, #a0a2a4 100%);
+  border-radius: 3px;
+  border: 1px solid #808284;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.5);
+  transition: left 0.2s cubic-bezier(0.4,0,0.2,1), background 0.2s;
+  z-index: 2;
+}
+
+/* ON state */
+.rocker-switch.rocker-on .rocker-thumb {
+  left: calc(62px - 28px - 2px);
+  background: linear-gradient(180deg, #60cc70 0%, #3da949 100%);
+  border-color: #2a8a38;
+}
+
+.rocker-switch.rocker-on .rocker-lbl-in {
+  color: #7fff8a;
+}
+
+.rocker-switch.rocker-on .rocker-lbl-off {
+  color: rgba(255, 255, 255, 0.473);
+}
+
+/* Headphone button */
+.headphone-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 5px;
+  border: 1.5px solid #6a6c70;
+  background: linear-gradient(180deg, #3e4046 0%, #2c2e32 100%);
+  color: rgba(255,255,255,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: background 0.15s, color 0.15s, transform 0.08s;
+}
+.headphone-btn:hover {
+  background: linear-gradient(180deg, #505258 0%, #383a3e 100%);
+  color: #fff;
+}
+.headphone-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* In fallback, slightly smaller rocker row */
+.fb-rocker-row {
+  padding: 3px 6px 2px;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  margin-bottom: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   SENSORS / INDICATORS BLOCK
+   ───────────────────────────────────────────── */
+.sensors-block {
+  height: auto;
+  min-height: 50px;
+  border-radius: 4px;
+  width: 100px;
+}
+
+.sensors-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+  padding: 4px 6px 5px;
+}
+
+.sensor-thermo {
+  width: 13px;
+  height: 25px;
+  flex-shrink: 0;
+}
+.sensor-thermo svg { width: 100%; height: 100%; }
+
+.sensor-gauge {
+  width: 30px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.sensor-gauge svg { width: 100%; height: 100%; }
+
+
+
+/* Fallback sensors — compact */
+.sensors-label-outside {
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Wrapper behaves like a normal device block */
+.sensors-block-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Compact cube-style sensor box */
+.sensors-compact {
+  background: #1e2024;
+  border-radius: 4px;
+  width: 80px;      /* ✅ Smaller width */
+  height: 45px;      /* ✅ Smaller height */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 4px;
+  gap: 4px;
+}
+
+/* Resize inner components */
+.sensors-compact .sensor-thermo svg {
+  width: 9px;
+  height: 15px;
+}
+
+.sensors-compact .sensor-gauge svg {
+  width: 20px;
+  height: 15px;
+}
+
+.sensor-fb{
+  align-self: center;
+}
+
+/* ─────────────────────────────────────────────
+   COIN DEPOSITOR v2 — matches reference image
+   Square grey face with vertical slit centered
+   ───────────────────────────────────────────── */
+.coin-dep-block {
+  height: auto;
+  min-height: var(--dev-h);
+  justify-content: center;
+}
+
+.coin-dep-v2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 4px 4px;
+}
+
+.coin-dep-v2-face {
+  width: 100%;
+  max-width: 120px;
+  height: 40px;
+  background: linear-gradient(180deg, #6a6d72 0%, #555860 50%, #6a6d72 100%);
+  border-radius: 3px;
+  border: 2px solid #3a3c40;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.coin-dep-v2-face::before {
+  /* inner recessed border to simulate depth */
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.4);
+  background: linear-gradient(180deg, #4a4d52 0%, #5a5d62 100%);
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.coin-dep-v2-slit-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The vertical slit — tall, narrow, dark */
+.coin-dep-v2-slit {
+  width: 6px;
+  height: 26px;
+  background: #060708;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 3px rgba(0,0,0,1),
+    0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* Smaller variant for bottom panel side-by-side */
+.coin-dep-v2-sm .coin-dep-v2-face {
+  height: 30px;
+  max-width: 90px;
+}
+
+.coin-dep-v2-sm .coin-dep-v2-slit {
+  width: 5px;
+  height: 20px;
+}
+
+/* ─────────────────────────────────────────────
+   COIN DISPENSER — narrower for col2
+   ───────────────────────────────────────────── */
+.coin-dep-narrow,
+.coin-disp-narrow {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   COIN PAIR — side by side in bottom panel
+   ───────────────────────────────────────────── */
+.coin-pair-cluster {
+  flex: 0.9 !important;
+}
+
+.coin-pair-row {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.coin-half {
+  flex: 1;
+  min-width: 0;
+  margin-left: 0 !important;
+}
+
+.coin-half .dev-name-label {
+  font-size: 9px;
+}
+
+/* ─────────────────────────────────────────────
+   COIN PAIR in FALLBACK — side by side row
+   ───────────────────────────────────────────── */
+.coin-pair-row-fb {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.coin-fb-half {
+  flex: 1;
+  min-width: 0;
+  margin-left: 0 !important;
+}
+
+.coin-fb-half .dev-name-label {
+  font-size: 9px;
+}
+
+.coin-fb-half .coin-disp-panel {
+  padding: 1px 2px 2px;
+}
+
+/* Remove the sensors from bottom panel when in L-shape layout */
+[data-layout="lshape"] .sensors-bottom-dev {
+    display: none !important;
+}
+
+/* --- FIX BOTTOM STRETCH COMPLETELY --- */
+
+/* Stretch ANY device inside bottom panel */
+.panel-bottom .dev-block {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+}
+
+/* Fix coin pair cluster */
+.panel-bottom .coin-pair-cluster,
+.panel-bottom .coin-half {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Reduce giant forced margins that prevented flex */
+[data-layout="lshape"] .panel-bottom .bottom-cluster > .dev-block + .dev-block {
+    margin-top: 40px !important;
+}
+
+/* Ensure bottom clusters share space */
+.panel-bottom .bottom-cluster {
+    flex: 1 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction:column;
+}
+/* ═══════════════════════════════════════════════════════════════
+   PATCH v4 — Layout, sensor, coin overlap, bottom panel fixes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Kill the old 40px forced margin between stacked bottom-cluster devices ── */
+[data-layout="lshape"] .panel-bottom .bottom-cluster > .dev-block + .dev-block {
+  margin-top: 0 !important;
+}
+
+/* ── 2. Bottom panel: proper even gap between clusters ── */
+[data-layout="lshape"] .panel-bottom {
+  gap: 14px !important;
+  padding: 10px 14px 8px !important;
+  align-items: stretch !important;
+}
+
+[data-layout="lshape"] .panel-bottom .bottom-cluster {
+  flex: 1 1 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+
+/* ── 3. Kill stray left margin on all bottom-dev elements ── */
+.dev-block.bottom-dev {
+  margin-left: 0 !important;
+}
+
+/* ── 4. Coin depositor in bottom panel: match coin dispenser height exactly ── */
+[data-layout="lshape"] .panel-bottom .coin-dep-block,
+[data-layout="lshape"] .panel-bottom .coin-half.coin-dep-block {
+  height: var(--dev-h) !important;
+  min-height: var(--dev-h) !important;
+  max-height: var(--dev-h) !important;
+}
+
+[data-layout="lshape"] .panel-bottom .coin-dep-v2-face {
+  height: 26px !important;
+}
+
+[data-layout="lshape"] .panel-bottom .coin-pair-row {
+  gap: 8px !important;
+  align-items: stretch !important;
+}
+
+[data-layout="lshape"] .panel-bottom .coin-half {
+  height: var(--dev-h) !important;
+  min-height: var(--dev-h) !important;
+}
+
+/* ── 5. col2 coin blocks: explicit bounded height to prevent overlap ── */
+.panel-col2 .coin-dep-block,
+.panel-col2 .coin-disp-block {
+  height: auto !important;
+  min-height: 70px !important;
+  max-height: 86px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Same fix in fallback panel */
+.fb-col .coin-dep-block,
+.fb-col .coin-disp-block {
+  height: auto !important;
+  min-height: 62px !important;
+  max-height: 80px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── 6. Sensors block: square block, not a thin rectangle ── */
+.sensors-block {
+  height: auto !important;
+  min-height: 74px !important;
+  max-height: 90px !important;
+  width: 100% !important;
+  flex-shrink: 0 !important;
+  padding: 4px 6px 8px !important;
+}
+
+.sensors-inner {
+  padding: 6px 8px 8px !important;
+  gap: 10px !important;
+  justify-content: center !important;
+}
+
+.sensor-thermo,
+.sensor-thermo svg {
+  width: 20px !important;
+  height: 42px !important;
+}
+
+.sensor-gauge,
+.sensor-gauge svg {
+  width: 56px !important;
+  height: 36px !important;
+}
+
+/* Sensors in fallback panel */
+.fb-col .sensors-block {
+  min-height: 70px !important;
+  max-height: 86px !important;
+  flex-shrink: 0 !important;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "lshape-atm-simulator",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "watch": "nodemon --exec electron ."
+  },
+  "nodemonConfig": {
+    "watch": ["src/"],
+    "ext": "js,html,css",
+    "ignore": ["node_modules"]
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "nodemon": "^3.1.0"
+  }
+}

@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="./style.css">                
+<script>
+document.addEventListener("contextmenu", function(e) { e.preventDefault(); });
+</script>
+  </head>
+  <body>
+
+    <div class="screen-frame" id="screen" aria-label="ATM screen"></div>
+
+    <!-- RIGHT COLUMN 1 -->
+    <aside class="panel panel-col1" id="panelCol1" aria-label="ATM right column 1">
+
+      <!-- ROCKER SWITCH + HEADPHONE ROW -->
+      <div class="rocker-headphone-row">
+        <div class="rocker-wrap">
+          <span class="rocker-label-txt">ROCKER SWITCH</span>
+          <div class="rocker-switch" id="rockerSwitch" title="Rocker Switch">
+            <div class="rocker-track">
+              <span class="rocker-lbl-off">OFF</span>
+              <div class="rocker-thumb" id="rockerThumb"></div>
+              <span class="rocker-lbl-on">ON</span>
+            </div>
+          </div>
+        </div>
+        <button class="headphone-btn" id="headphoneBtn" title="Headphone / Microphone" aria-label="Headphone/Mic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
+            <path d="M6 18V16C6 10.477 10.477 6 16 6C21.523 6 26 10.477 26 16V18" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+            <rect x="4" y="17" width="5" height="7" rx="2.5" fill="currentColor"/>
+            <rect x="23" y="17" width="5" height="7" rx="2.5" fill="currentColor"/>
+            <line x1="9" y1="24" x2="13" y2="27" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="13" cy="27.5" r="1.6" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- RECEIPT PRINTER -->
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="RCPT" data-ctx-device="Receipt Printer">
+        <span class="dev-name-label">Receipt Printer</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- STATEMENT PRINTER -->
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="STMT" data-ctx-device="Statement Printer">
+        <span class="dev-name-label">Statement Printer</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- JOURNAL PRINTER -->
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="JRPT" data-ctx-device="Journal Printer">
+        <span class="dev-name-label">Journal Printer</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- CARD READER + CCR -->
+      <div class="dev-block card-reader-block" data-draggable-control data-device-name="CARD_CCR" data-ctx-device="Card Reader">
+        <span class="dev-name-label">Card Reader</span>
+        <div class="cr-slot-housing" data-ctx-device="Card Reader">
+          <div class="cr-slot-top-face"><div class="cr-slot-slit"></div></div>
+          <div class="cr-slot-arrow-hint">&#9650;</div>
+        </div>
+        <span class="cr-tap-hint">Insert or tap card here</span>
+        <div class="card-ccr-icons">
+          <div class="card-sub-icon" data-sub-device="CARD" data-ctx-device="Card Reader">
+            <svg class="icon" viewBox="0 0 50 70" fill="none">
+              <rect x="5" y="15" width="27" height="36" rx="3" fill="none" stroke="rgba(255,255,255,0.6)"/>
+              <rect x="11" y="15" width="4" height="36" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+              <line x1="48" y1="50" x2="48" y2="18" stroke="rgba(255,255,255,0.6)" stroke-linecap="round" stroke-width="1.8"/>
+              <path d="M43 24 L48 18 L53 24" stroke="rgba(255,255,255,0.6)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+            </svg>
+            <div class="absent-overlay sub-absent" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="card-sub-icon" data-sub-device="CCR" data-ctx-device="Contactless Card Reader">
+            <svg class="icon ccr-icon" viewBox="0 0 64 64" fill="none">
+              <rect x="2" y="20" width="30" height="22" rx="3" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+              <rect x="6" y="25" width="8" height="6" rx="1.2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
+              <path d="M40 40 Q49 32 40 24" stroke="rgba(255,255,255,0.6)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M46 45 Q58 32 46 19" stroke="rgba(255,255,255,0.6)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M52 50 Q67 32 52 14" stroke="rgba(255,255,255,0.6)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div class="absent-overlay sub-absent" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ID SCANNER (lshape only) -->
+      <div class="dev-block id-scanner-block col1-lshape-only" data-draggable-control data-device-name="IDSCANNER" data-ctx-device="ID Scanner">
+        <span class="dev-name-label">ID Scanner</span>
+        <div class="id-scanner-slot"><div class="id-slot-slit"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- BARCODE READER (lshape only) -->
+      <div class="dev-block barcode-block col1-lshape-only" data-draggable-control data-device-name="BARCODE" data-ctx-device="Barcode Reader">
+        <span class="dev-name-label">Barcode Reader</span>
+        <div class="barcode-scanner-window">
+          <div class="bc-corner bc-tl"></div><div class="bc-corner bc-tr"></div>
+          <div class="bc-corner bc-bl"></div><div class="bc-corner bc-br"></div>
+          <div class="bc-laser"></div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- SENSORS / INDICATORS (lshape only) -->
+      <div class="dev-block col1-lshape-only sensors-block-wrapper" data-draggable-control data-device-name="SENS" data-ctx-device="Sensors">
+        <span class="dev-name-label sensors-label-outside">Sensors / Indicators</span>
+        <div class="sensors-compact">
+          <div class="sensor-thermo">
+            <svg viewBox="0 0 20 56" fill="none">
+              <rect x="7" y="2" width="6" height="36" rx="3" stroke="#4caf7d" stroke-width="1.5" fill="none"/>
+              <rect x="8.5" y="14" width="3" height="22" rx="1.5" fill="#4caf7d" opacity="0.7"/>
+              <circle cx="10" cy="44" r="6" fill="#4caf7d" stroke="#4caf7d" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="sensor-gauge">
+            <svg viewBox="0 0 64 40" fill="none">
+              <circle cx="32" cy="32" r="28" stroke="#555" stroke-width="2" fill="#1a1a1a"/>
+              <path d="M8 32 A24 24 0 0 1 19 11" stroke="#e53535" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M19 11 A24 24 0 0 1 32 8" stroke="#f5a623" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M32 8 A24 24 0 0 1 56 32" stroke="#4caf7d" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <line x1="32" y1="32" x2="44" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="32" cy="32" r="3" fill="#ccc"/>
+            </svg>
+          </div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/>
+            <line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- PIN PAD (twocol/small only) -->
+      <section class="pin-pad-wrapper col1-twocol-only" data-draggable-control data-device-name="KEYS" data-ctx-device="PIN Pad" data-ctx-pad="1">
+        <div class="pin-pad" id="keypad-col1" aria-label="ATM keypad">
+          <div class="key-col key-col-fkeys">
+            <button class="fn fkey">F1</button><button class="fn fkey">F2</button>
+            <button class="fn fkey">F3</button><button class="fn fkey">F4</button>
+          </div>
+          <div class="key-col key-col-nums">
+            <div class="num-grid">
+              <button>1</button><button>2</button><button>3</button>
+              <button>4</button><button>5</button><button>6</button>
+              <button>7</button><button>8</button><button>9</button>
+              <button class="blank"></button><button>0</button><button class="blank dot">.</button>
+            </div>
+          </div>
+          <div class="key-col key-col-fkeys">
+            <button class="fn fkey">F5</button><button class="fn fkey">F6</button>
+            <button class="fn fkey">F7</button><button class="fn fkey">F8</button>
+          </div>
+          <div class="key-col key-col-word">
+            <button class="fn cancel">CANCEL</button><button class="fn clear">CLEAR</button>
+            <button class="fn enter">ENTER</button><button class="fn help">HELP</button>
+          </div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </section>
+    </aside>
+
+    <!-- RIGHT COLUMN 2 (twocol/small only) -->
+    <aside class="panel panel-col2" id="panelCol2" aria-label="ATM right column 2">
+
+      <div class="dev-block id-scanner-block" data-draggable-control data-device-name="IDSCANNER" data-ctx-device="ID Scanner">
+        <span class="dev-name-label">ID Scanner</span>
+        <div class="id-scanner-slot"></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <div class="dev-block barcode-block" data-draggable-control data-device-name="BARCODE" data-ctx-device="Barcode Reader">
+        <span class="dev-name-label">Barcode Reader</span>
+        <div class="barcode-scanner-window">
+          <div class="bc-corner bc-tl"></div><div class="bc-corner bc-tr"></div>
+          <div class="bc-corner bc-bl"></div><div class="bc-corner bc-br"></div>
+          <div class="bc-laser"></div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="ACCEPTOR" data-ctx-device="Cash Depositor">
+        <span class="dev-name-label">Cash Acceptor</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="CASH" data-ctx-device="Dispenser">
+        <span class="dev-name-label">Cash Dispenser</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- COIN DEPOSITOR v2 design -->
+      <div class="dev-block coin-dep-block coin-dep-narrow" data-draggable-control data-device-name="COIN" data-ctx-device="Coin Depositor">
+        <span class="dev-name-label">Coin Depositor</span>
+        <div class="coin-dep-v2">
+          <div class="coin-dep-v2-face">
+            <div class="coin-dep-v2-slit-wrap">
+              <div class="coin-dep-v2-slit"></div>
+            </div>
+          </div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <!-- COIN DISPENSER -->
+      <div class="dev-block coin-disp-block coin-disp-narrow" data-draggable-control data-device-name="COINDISP" data-ctx-device="Coin Dispenser">
+        <span class="dev-name-label">Coin Dispenser</span>
+        <div class="coin-disp-panel">
+          <div class="coin-disp-slot-bar"></div>
+          <div class="coin-disp-tray">
+            <div class="coin-disp-tray-left"></div>
+            <div class="coin-disp-tray-inner"></div>
+            <div class="coin-disp-tray-right"></div>
+          </div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="DEP" data-ctx-device="Envelope Depositor">
+        <span class="dev-name-label">Envelope Depositor</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+      <div class="dev-block tray-dev" data-draggable-control data-device-name="IPM" data-ctx-device="Cheque Depositor">
+        <span class="dev-name-label">Cheque Depositor</span>
+        <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </div>
+
+    </aside>
+
+    <!-- BOTTOM PANEL (lshape only) -->
+    <div class="panel panel-bottom" id="panelBottom" aria-label="ATM bottom devices">
+
+      <!-- LEFT: Cash Dispenser + Cash Acceptor -->
+      <div class="bottom-cluster">
+        <div class="dev-block tray-dev bottom-dev" data-draggable-control data-device-name="CASH" data-ctx-device="Dispenser">
+          <span class="dev-name-label">Cash Dispenser</span>
+          <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="dev-block tray-dev bottom-dev" data-draggable-control data-device-name="ACCEPTOR" data-ctx-device="Cash Depositor">
+          <span class="dev-name-label">Cash Acceptor</span>
+          <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- CENTRE: PIN Pad -->
+      <section class="pin-pad-wrap-bottom" data-draggable-control data-device-name="KEYS" data-ctx-device="PIN Pad" data-ctx-pad="1">
+        <div class="pin-pad" id="keypad-bottom" aria-label="ATM keypad (bottom)">
+          <div class="key-col key-col-fkeys">
+            <button class="fn fkey">F4</button><button class="fn fkey">F3</button>
+            <button class="fn fkey">F2</button><button class="fn fkey">F1</button>
+          </div>
+          <div class="key-col key-col-nums">
+            <div class="num-grid">
+              <button>1</button><button>2</button><button>3</button>
+              <button>4</button><button>5</button><button>6</button>
+              <button>7</button><button>8</button><button>9</button>
+              <button class="blank"></button><button>0</button><button class="blank dot">.</button>
+            </div>
+          </div>
+          <div class="key-col key-col-fkeys">
+            <button class="fn fkey">F5</button><button class="fn fkey">F6</button>
+            <button class="fn fkey">F7</button><button class="fn fkey">F8</button>
+          </div>
+          <div class="key-col key-col-word">
+            <button class="fn cancel">CANCEL</button><button class="fn clear">CLEAR</button>
+            <button class="fn enter">ENTER</button><button class="fn help">HELP</button>
+          </div>
+        </div>
+        <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+      </section>
+
+      <!-- RIGHT-A: Coin Dispenser + Coin Depositor SIDE BY SIDE -->
+      <div class="bottom-cluster coin-pair-cluster">
+        <div class="coin-pair-row">
+          <div class="dev-block coin-disp-block coin-half" data-draggable-control data-device-name="COINDISP" data-ctx-device="Coin Dispenser">
+            <span class="dev-name-label">Coin Disp.</span>
+            <div class="coin-disp-panel">
+              <div class="coin-disp-slot-bar"></div>
+              <div class="coin-disp-tray">
+                <div class="coin-disp-tray-left"></div>
+                <div class="coin-disp-tray-inner"></div>
+                <div class="coin-disp-tray-right"></div>
+              </div>
+            </div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+          <div class="dev-block coin-dep-block coin-half" data-draggable-control data-device-name="COIN" data-ctx-device="Coin Depositor">
+            <span class="dev-name-label">Coin Dep.</span>
+            <div class="coin-dep-v2 coin-dep-v2-sm">
+              <div class="coin-dep-v2-face">
+                <div class="coin-dep-v2-slit-wrap">
+                  <div class="coin-dep-v2-slit"></div>
+                </div>
+              </div>
+            </div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+        </div>
+        <!-- RECYCLER -->
+        <div class="dev-block tray-dev col1-spacer" data-draggable-control data-device-name="RECYCLEIN" data-ctx-device="Recycler Cash IN/OUT">
+          <span class="dev-name-label">Recycler (IN/OUT)</span>
+          <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- RIGHT-B: Cheque + Envelope -->
+      <div class="bottom-cluster">
+        <div class="dev-block tray-dev bottom-dev" data-draggable-control data-device-name="IPM" data-ctx-device="Cheque Depositor">
+          <span class="dev-name-label">Cheque Depositor</span>
+          <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </div>
+        <div class="dev-block tray-dev bottom-dev" data-draggable-control data-device-name="DEP" data-ctx-device="Envelope Depositor">
+          <span class="dev-name-label">Envelope Depositor</span>
+          <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </div>
+      </div>
+
+      <!-- FAR RIGHT: Sensors
+      <div class="bottom-cluster">
+        <div class="dev-block sensors-block bottom-dev sensors-bottom-dev" data-draggable-control data-device-name="SENS" data-ctx-device="Sensors">
+          <span class="dev-name-label">Sensors / Indicators</span>
+          <div class="sensors-inner">
+            <div class="sensor-thermo">
+              <svg viewBox="0 0 20 56" fill="none">
+                <rect x="7" y="2" width="6" height="36" rx="3" stroke="#4caf7d" stroke-width="1.5" fill="none"/>
+                <rect x="8.5" y="14" width="3" height="22" rx="1.5" fill="#4caf7d" opacity="0.7"/>
+                <circle cx="10" cy="44" r="6" fill="#4caf7d" stroke="#4caf7d" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="sensor-gauge">
+              <svg viewBox="0 0 64 40" fill="none">
+                <circle cx="32" cy="32" r="28" stroke="#555" stroke-width="2" fill="#1a1a1a"/>
+                <path d="M8 32 A24 24 0 0 1 19 11" stroke="#e53535" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M19 11 A24 24 0 0 1 32 8" stroke="#f5a623" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M32 8 A24 24 0 0 1 56 32" stroke="#4caf7d" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <line x1="32" y1="32" x2="44" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="32" cy="32" r="3" fill="#ccc"/>
+              </svg>
+            </div>
+          </div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </div>
+      </div> -->
+
+    </div><!-- /panel-bottom -->
+
+    <!-- FALLBACK PANEL (twocol/small only) -->
+    <div class="fb-panel" id="panelFallback" aria-label="ATM fallback panel">
+
+      <!-- Rocker + headphone in fallback too -->
+      <div class="rocker-headphone-row fb-rocker-row">
+        <div class="rocker-wrap">
+          <span class="rocker-label-txt">ROCKER SWITCH</span>
+          <div class="rocker-switch" id="rockerSwitchFb" title="Rocker Switch">
+            <div class="rocker-track">
+              <span class="rocker-lbl-off">OFF</span>
+              <div class="rocker-thumb" id="rockerThumbFb"></div>
+              <span class="rocker-lbl-on">ON</span>
+            </div>
+          </div>
+        </div>
+        <button class="headphone-btn" id="headphoneBtnFb" title="Headphone / Microphone" aria-label="Headphone/Mic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+            <path d="M6 18V16C6 10.477 10.477 6 16 6C21.523 6 26 10.477 26 16V18" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/>
+            <rect x="4" y="17" width="5" height="7" rx="2.5" fill="currentColor"/>
+            <rect x="23" y="17" width="5" height="7" rx="2.5" fill="currentColor"/>
+            <line x1="9" y1="24" x2="13" y2="27" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="13" cy="27.5" r="1.6" fill="currentColor"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="fb-device-grid">
+
+        <!-- COLUMN A -->
+        <div class="fb-col fb-col-a">
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="IDSCANNER" data-ctx-device="ID Scanner">
+            <span class="dev-name-label">ID Scanner</span>
+            <div class="id-scanner-slot"><div class="id-slot-slit"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block barcode-block" data-draggable-control data-device-name="BARCODE" data-ctx-device="Barcode Reader">
+            <span class="dev-name-label">Barcode Reader</span>
+            <div class="barcode-scanner-window">
+              <div class="bc-corner bc-tl"></div><div class="bc-corner bc-tr"></div>
+              <div class="bc-corner bc-bl"></div><div class="bc-corner bc-br"></div>
+              <div class="bc-laser"></div>
+            </div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="RECYCLEIN" data-ctx-device="Recycler Cash IN/OUT">
+            <span class="dev-name-label">Recycler (IN/OUT)</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block card-reader-block" data-draggable-control data-device-name="CARD_CCR" data-ctx-device="Card Reader">
+            <span class="dev-name-label">Card Reader</span>
+            <div class="cr-slot-housing" data-ctx-device="Card Reader">
+              <div class="cr-slot-top-face"><div class="cr-slot-slit"></div></div>
+              <div class="cr-slot-arrow-hint">&#9650;</div>
+            </div>
+            <span class="cr-tap-hint">Insert or tap card here</span>
+            <div class="card-ccr-icons">
+              <div class="card-sub-icon" data-sub-device="CARD" data-ctx-device="Card Reader">
+                <svg class="icon" viewBox="0 0 50 70" fill="none">
+                  <rect x="5" y="15" width="27" height="36" rx="3" fill="none" stroke="rgba(255,255,255,0.6)"/>
+                  <rect x="11" y="15" width="4" height="36" rx="1.5" fill="rgba(255,255,255,0.6)"/>
+                  <line x1="48" y1="50" x2="48" y2="18" stroke="rgba(255,255,255,0.6)" stroke-linecap="round" stroke-width="1.8"/>
+                  <path d="M43 24 L48 18 L53 24" stroke="rgba(255,255,255,0.6)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+                </svg>
+                <div class="absent-overlay sub-absent" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+              </div>
+              <div class="card-sub-icon" data-sub-device="CCR" data-ctx-device="Contactless Card Reader">
+                <svg class="icon ccr-icon" viewBox="0 0 64 64" fill="none">
+                  <rect x="2" y="20" width="30" height="22" rx="3" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                  <rect x="6" y="25" width="8" height="6" rx="1.2" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
+                  <path d="M40 40 Q49 32 40 24" stroke="rgba(255,255,255,0.6)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                  <path d="M46 45 Q58 32 46 19" stroke="rgba(255,255,255,0.6)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                  <path d="M52 50 Q67 32 52 14" stroke="rgba(255,255,255,0.6)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+                </svg>
+                <div class="absent-overlay sub-absent" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="IPM" data-ctx-device="Cheque Depositor">
+            <span class="dev-name-label">Cheque Depositor</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <!-- Sensors in fallback col-a -->
+
+          <div class="dev-block sensors-block sensors-fb" data-draggable-control data-device-name="SENS" data-ctx-device="Sensors">
+            <span class="dev-name-label sensors-label-outside">Sensors</span>
+            <div class="sensors-compact">
+              <div class="sensor-thermo">
+                <svg viewBox="0 0 15 56" fill="none">
+                  <rect x="11" y="15" width="6" height="26" rx="3" stroke="#4caf7d" stroke-width="1.5" fill="none"/>
+                  <rect x="12.5" y="25" width="3" height="18" rx="1.5" fill="#4caf7d" opacity="0.7"/>
+                  <circle cx="14" cy="44" r="6" fill="#4caf7d" stroke="#4caf7d" stroke-width="1"/>
+                </svg>
+              </div>
+              <div class="sensor-gauge">
+                <svg class="sensor-gauge-svg" viewBox="0 0 60 50" fill="none">
+  <!-- Inner Circle (r=18) -->
+  <circle cx="32" cy="32" r="18" stroke="#555" stroke-width="2" fill="#1a1a1a""")/>>
+  
+  <!-- Red Path (Aligned to r=18) -->
+  <path d="M14 32 A18 18 0 0 1 22.25 16.4" stroke="#e53535" stroke-width="4" fill="none" stroke-linecap="round""")/>>
+  
+  <!-- Orange Path (Aligned to r=18) -->
+  <path d="M22.25 16.4 A18 18 0 0 1 32 14" stroke="#f5a623" stroke-width="4" fill="none" stroke-linecap="round""")/>>
+  
+  <!-- Green Path (Aligned to r=18) -->
+  <path d="M32 14 A18 18 0 0 1 50 32" stroke="#4caf7d" stroke-width="4" fill="none" stroke-linecap="round""")/>>
+  
+  <!-- Needle (Shortened to fit r=18) -->
+  <line x1="32" y1="32" x2="41" y2="16.5" stroke="white" stroke-width="2" stroke-linecap="round""")/>>
+  
+  <!-- Center Pin -->
+  <circle cx="32" cy="32" r="3" fill="#ccc""")/>>
+</svg>
+
+              </div>
+            </div>
+            <div class="absent-overlay" aria-hidden="true">
+              <svg viewBox="0 0 40 40">
+                <circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/>
+                <line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+        </div><!-- /fb-col-a -->
+
+        <!-- COLUMN B -->
+        <div class="fb-col fb-col-b">
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="RCPT" data-ctx-device="Receipt Printer">
+            <span class="dev-name-label">Receipt Printer</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="STMT" data-ctx-device="Statement Printer">
+            <span class="dev-name-label">Statement Printer</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="JRPT" data-ctx-device="Journal Printer">
+            <span class="dev-name-label">Journal Printer</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="ACCEPTOR" data-ctx-device="Cash Depositor">
+            <span class="dev-name-label">Cash Acceptor</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="CASH" data-ctx-device="Dispenser">
+            <span class="dev-name-label">Cash Dispenser</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <div class="dev-block tray-dev" data-draggable-control data-device-name="DEP" data-ctx-device="Envelope Depositor">
+            <span class="dev-name-label">Envelope Depositor</span>
+            <div class="tray-slot"><div class="tray-slot-left"></div><div class="tray-slot-inner"></div><div class="tray-slot-right"></div></div>
+            <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+          </div>
+
+          <!-- Coin pair row in fallback - side by side -->
+          <div class="coin-pair-row-fb">
+            <div class="dev-block coin-dep-block coin-half" data-draggable-control data-device-name="COIN" data-ctx-device="Coin Depositor">
+              <span class="dev-name-label">Coin Dep.</span>
+              <div class="coin-dep-v2 coin-dep-v2-sm">
+                <div class="coin-dep-v2-face">
+                  <div class="coin-dep-v2-slit-wrap">
+                    <div class="coin-dep-v2-slit"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+            </div>
+            <div class="dev-block coin-disp-block coin-half" data-draggable-control data-device-name="COINDISP" data-ctx-device="Coin Dispenser">
+              <span class="dev-name-label">Coin Disp.</span>
+              <div class="coin-disp-panel">
+                <div class="coin-disp-slot-bar"></div>
+                <div class="coin-disp-tray">
+                  <div class="coin-disp-tray-left"></div>
+                  <div class="coin-disp-tray-inner"></div>
+                  <div class="coin-disp-tray-right"></div>
+                </div>
+              </div>
+              <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+            </div>
+          </div>
+
+        </div><!-- /fb-col-b -->
+
+      </div><!-- /fb-device-grid -->
+
+      <!-- PIN Pad row -->
+      <div class="fb-pinpad-row">
+        <section class="fb-pin-pad-wrapper" data-draggable-control data-device-name="KEYS" data-ctx-device="PIN Pad" data-ctx-pad="1">
+          <div class="pin-pad" id="keypad-fallback" aria-label="ATM keypad (fallback)">
+            <div class="key-col key-col-fkeys">
+              <button class="fn fkey">F1</button><button class="fn fkey">F2</button>
+              <button class="fn fkey">F3</button><button class="fn fkey">F4</button>
+            </div>
+            <div class="key-col key-col-nums">
+              <div class="num-grid">
+                <button>1</button><button>2</button><button>3</button>
+                <button>4</button><button>5</button><button>6</button>
+                <button>7</button><button>8</button><button>9</button>
+                <button class="blank"></button><button>0</button><button class="blank dot">.</button>
+              </div>
+            </div>
+            <div class="key-col key-col-fkeys">
+              <button class="fn fkey">F5</button><button class="fn fkey">F6</button>
+              <button class="fn fkey">F7</button><button class="fn fkey">F8</button>
+            </div>
+            <div class="key-col key-col-word">
+              <button class="fn cancel">CANCEL</button><button class="fn clear">CLEAR</button>
+              <button class="fn enter">ENTER</button><button class="fn help">HELP</button>
+            </div>
+          </div>
+          <div class="absent-overlay" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" stroke="#e53535" stroke-width="3.5" fill="none"/><line x1="7" y1="7" x2="33" y2="33" stroke="#e53535" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+        </section>
+      </div>
+
+    </div><!-- /panelFallback -->
+
+    <div class="controls-hidden" aria-hidden="true">
+      <button id="btnInsertCard">Insert Card</button>
+      <button id="btnEjectCard">Eject Card</button>
+      <button id="btnDispense">Dispense Cash</button>
+      <button id="btnPrint">Print Receipt</button>
+      <div id="lightReady"></div><div id="lightBusy"></div><div id="lightError"></div>
+      <div id="readerStatus"></div><div id="cashStatus"></div><div id="receiptStatus"></div>
+      <div id="deviceError"></div>
+      <ul id="xfsDeviceList"></ul>
+      <div id="screenMessage"></div>
+      <div id="cardVisual" class="card card-hidden"></div>
+      <div id="cardSlot"></div>
+    </div>
+
+<!-- MODAL DIALOGS -->
+<div id="dlg-overlay" style="display:none">
+  <div class="dlg-box" id="dlg-fault-create" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Create Fault</span><button class="dlg-close" aria-label="Close">✕</button></div>
+    <div class="dlg-body">
+      <div class="dlg-row">
+        <div class="dlg-col"><label class="dlg-label">Command</label><select id="dlg-fc-command" class="dlg-select" size="6"></select></div>
+        <div class="dlg-col"><label class="dlg-label">Fault Code</label><select id="dlg-fc-fault" class="dlg-select" size="6"></select></div>
+      </div>
+      <div class="dlg-section-title">Set Device Status</div>
+      <div class="dlg-radio-group">
+        <label class="dlg-radio"><input type="radio" name="dlg-fc-status" value="OFFLINE"> OFFLINE</label>
+        <label class="dlg-radio"><input type="radio" name="dlg-fc-status" value="HWERROR"> HARDWARE ERROR</label>
+        <label class="dlg-radio"><input type="radio" name="dlg-fc-status" value="USERERROR"> USER ERROR</label>
+      </div>
+    </div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-fc-configure" class="dlg-btn dlg-btn-primary">Configure</button></div>
+  </div>
+  <div class="dlg-box" id="dlg-set-lpszextra" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Set lpszExtra</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body">
+      <div class="dlg-field"><label class="dlg-label" id="dlg-se-lbl">Status</label><input id="dlg-se-status" class="dlg-input" type="text" placeholder="Status value"/></div>
+      <div class="dlg-field"><label class="dlg-label">Capability</label><input id="dlg-se-cap" class="dlg-input" type="text" placeholder="Capability value"/></div>
+    </div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-se-add" class="dlg-btn dlg-btn-primary">Add</button></div>
+  </div>
+  <div class="dlg-box" id="dlg-clear-lpszextra" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Clear lpszExtra</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body">
+      <p class="dlg-hint">Select which lpszExtra fields to clear:</p>
+      <div class="dlg-check-group">
+        <label class="dlg-check"><input type="checkbox" id="dlg-cl-status"> Status</label>
+        <label class="dlg-check"><input type="checkbox" id="dlg-cl-cap"> Capability</label>
+      </div>
+    </div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-cl-clear" class="dlg-btn dlg-btn-danger">Clear</button></div>
+  </div>
+  <div class="dlg-box dlg-box-narrow" id="dlg-delay" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Set Execute Delay</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body"><label class="dlg-label">Delay (ms)</label><input id="dlg-delay-ms" class="dlg-input" type="number" min="0" placeholder="e.g. 2000"/></div>
+    <div class="dlg-footer"><button id="dlg-delay-cancel" class="dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-delay-ok" class="dlg-btn dlg-btn-primary">OK</button></div>
+  </div>
+  <div class="dlg-box" id="dlg-position" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Change Position</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body">
+      <div class="dlg-row">
+        <div class="dlg-col"><label class="dlg-label">Position</label><select id="dlg-pos-position" class="dlg-select" size="5"></select></div>
+        <div class="dlg-col"><label class="dlg-label" id="dlg-pos-status-lbl">Status</label><select id="dlg-pos-status" class="dlg-select" size="5"></select></div>
+      </div>
+    </div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-pos-set" class="dlg-btn dlg-btn-primary">Set</button></div>
+  </div>
+  <div class="dlg-box dlg-box-narrow" id="dlg-simple-action" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Confirm Action</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body"><p class="dlg-body-msg"></p></div>
+    <div class="dlg-footer"><button id="dlg-sa-cancel" class="dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-sa-ok" class="dlg-btn dlg-btn-primary">OK</button></div>
+  </div>
+  <div class="dlg-box dlg-box-narrow" id="dlg-card-select" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Select Card</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body"><div class="dlg-field"><label class="dlg-label">Card Name</label><select id="dlg-card-list" class="dlg-select" size="8"></select></div></div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-card-insert" class="dlg-btn dlg-btn-primary">Insert / Tap</button></div>
+  </div>
+  <div class="dlg-box" id="dlg-cheque-select" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Select Cheque Profile</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body">
+      <div class="dlg-row">
+        <div class="dlg-col" style="flex:1"><label class="dlg-label">Profiles</label><select id="dlg-cheque-list" class="dlg-select" size="8"></select></div>
+        <div class="dlg-col" style="flex:2">
+          <div class="dlg-field"><label class="dlg-label">Preview (front)</label><div id="dlg-cheque-preview-front" style="border:1px solid #ccc;min-height:120px;background:#eee;text-align:center;line-height:120px">Select a profile</div></div>
+          <div class="dlg-field"><label class="dlg-label">Preview (back)</label><div id="dlg-cheque-preview-back" style="border:1px solid #ccc;min-height:120px;background:#eee"></div></div>
+          <div class="dlg-field"><label class="dlg-label">Codeline</label><div id="dlg-cheque-codeline" style="border:1px solid #ccc;padding:4px;background:#fff;font-family:monospace"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-cheque-insert" class="dlg-btn dlg-btn-primary">Insert Cheque</button></div>
+  </div>
+  <div class="dlg-box" id="dlg-cash-select" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Select Profile</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body">
+      <div class="dlg-row">
+        <div class="dlg-col" style="flex:1"><label class="dlg-label">Profiles</label><select id="dlg-cash-list" class="dlg-select" size="8"></select></div>
+        <div class="dlg-col" style="flex:2"><div class="dlg-field"><label class="dlg-label">Note Details</label><div id="dlg-cash-details" style="border:1px solid #ccc;padding:4px;background:#fff;max-height:200px;overflow:auto"><span style="color:#888">Select a profile to view</span></div></div></div>
+      </div>
+    </div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-cash-insert" class="dlg-btn dlg-btn-primary">Insert</button></div>
+  </div>
+  <div class="dlg-box dlg-box-narrow" id="dlg-barcode-select" style="display:none">
+    <div class="dlg-header"><span class="dlg-title">Select Barcode</span><button class="dlg-close">✕</button></div>
+    <div class="dlg-body"><div class="dlg-field"><label class="dlg-label">Barcode Profile</label><select id="dlg-barcode-list" class="dlg-select" size="8"></select></div></div>
+    <div class="dlg-footer"><button class="dlg-close dlg-btn dlg-btn-secondary">Cancel</button><button id="dlg-barcode-select-btn" class="dlg-btn dlg-btn-primary">Select</button></div>
+  </div>
+</div><!-- /#dlg-overlay -->
+
+    <script src="./drag-devices.js"></script>
+    <script src="./app.js"></script>
+    <script src="./layout.js"></script>
+    <script src="./device-animations.js"></script>
+    <script src="./context-menu.js"></script>
+    <script src="./modals.js"></script>
+
+    <script>
+    /* Rocker switch logic */
+    (function(){
+      function wireRocker(switchEl, thumbEl) {
+        if (!switchEl || !thumbEl) return;
+        let on = false;
+        switchEl.addEventListener('click', function(){
+          on = !on;
+          switchEl.classList.toggle('rocker-on', on);
+        });
+      }
+      wireRocker(document.getElementById('rockerSwitch'), document.getElementById('rockerThumb'));
+      wireRocker(document.getElementById('rockerSwitchFb'), document.getElementById('rockerThumbFb'));
+      /* Headphone buttons: no-op for now */
+    })();
+    </script>
+  </body>
+</html>

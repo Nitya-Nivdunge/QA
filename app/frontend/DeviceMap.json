@@ -1,0 +1,112 @@
+{
+  "SimulatorList" : {
+    "ChequeDepositType" : null,
+    "Vendor" : "DIEBOLD",
+    "DeviceArray" : [ {
+      "DeviceName" : "COINDISP",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_CoinDisp",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "IDSCANNER",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "IPM",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_IDMBD",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "RECYCLEIN",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "BARCODE",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "CASH",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_AdvFuncDisp",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "RECYCLEOUT",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "DEP",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_EnvSuppDep",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "STMT",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "COIN",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "JRPT",
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "CARD",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_MotoCardRdr",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "SENS",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_TerminalIO",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "CCR",
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "RCPT",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_ReceiptPtr2",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "PBPT",
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "TTU",
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "KEYS",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_EPP7",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "MIXEDDEPOSIT",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "BUSDEP",
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "ACCEPTOR",
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_EnhNoteAcc",
+      "IsMandatoryDevice" : false
+    } ]
+  }
+}

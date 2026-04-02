@@ -1,0 +1,172 @@
+Technology : Electron JS and Java for backend processing
+Build using : npm and Gradle
+Resultion: Fit in 50% of Screen from the Left of the Windows Width 50% and Height 100%
+Requirment 
+Phase 1: Build UI to Which having the ATM like View and Device get bind base on the Device Configuraed in #DeviceMap.json 
+Where  "DeviceType" : "XFS" those need to display on Screen.
+Make emplty space for the ATM window load top left corner 1024x768
+Phase 2: Java Processing to Start all the device using XFS Service 
+base on the events Animation to display the user like Ready for Insert Card.
+Eject Card, Dispancer ready with Cash, Receipt print etc..
+Phase 3: Add device wise option to generate faults. that will call the java processing and that interact with XFS Service to perform action.
+
+
+Commands:
+npm.cmd start
+nodemon --ext js,html,css --exec electron .
+
+
+{
+  "SimulatorList" : {
+    "ChequeDepositType" : null,
+    "Vendor" : "DIEBOLD",
+    "DeviceArray" : [ {
+      "DeviceName" : "COINDISP",            Coin Dispenser
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "DBD_CoinDisp",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "IDSCANNER",           ID Scanner - IDC_XFS
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "IPM",                 Cheque Acceptor
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "DBD_IDMBD",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "RECYCLEIN",           Recycler
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "BARCODE",             Barcode Scanner
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "CASH",                Cash Dispenser Module (CDM). This is the primary unit that picks bills from cassettes and delivers them to the customer.
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "DBD_AdvFuncDisp",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "RECYCLOUT",           Recycler out
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "DEP",             Depository Module. Used for older-style envelope deposits or simple document intake.       
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_EnvSuppDep",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "STMT",              Statement Printer
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "COIN",                    Coin Depositor
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "JRPT",                    (Journal Printer): This is an internal printer that keeps a "master log" of every tap and click.
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "CARD",                    Card Reader
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "DBD_MotoCardRdr",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "SENS",                    Sensors
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_TerminalIO",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "CCR",                     Contactless Card Reader ( tap card )
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "RCPT",                    Receipt Printer
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_ReceiptPtr2",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "PBPT",                    Passbook printer
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "TTU",                     Test Terminal Unit
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "KEYS",                    Pin Pad
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_EPP7",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "MIXEDDEPOSIT",               Takes cash and Cheque both 
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "BUSDEP",                    Business Depository
+      "DeviceType" : "NOT_PRESENT",
+      "DeviceLogicalName" : "Not Supported",
+      "IsMandatoryDevice" : false
+    }, {
+      "DeviceName" : "ACCEPTOR",                    Cash Acceptor
+      "DeviceType" : "XFS",
+      "DeviceLogicalName" : "DBD_EnhNoteAcc",
+      "IsMandatoryDevice" : false
+    } ]
+  }
+}
+
+
+put the id scanner and the barcode scanner to the right column and also do one thing the outer component box of the devices make it lighter shade even the border of the box make it lighter that it is right now 
+
+bringing 2 components back to the right column will make the spacing in the bottom row back to noraml like before
+
+
+
+also i want the font size of the component labels a little bigger i think you have reduced the size of that
+
+
+
+also like i said before the pin pad has a blank button and a button with (.) on either side of 0 button dont change that
+
+
+
+Criteria for fallback logic:
+1. If the fixed screen in our UI is smaller than the device screen the application is running on then check
+   1.1 If there is still space remaining for the bottom panel to fit below the inner fixed screen.
+       If yes then go ahead with the basic UI design in which elements are arranged in LShape around the inner fixed screen
+       If No then move the bottom row elements to right column i.e basically keep the components size same just add another column so there are 2 right columns for this follow the fallback UI image
+       So basically there shoudld be no scroll to the window since in both cases we are arranging the compnents in a way where we are able to see all of them
+2. If the fixed screen in our UI is larger than the device screen the application is running on then 
+   2.1 have the screen of the same fixed size but now we dont follow the LShape design 
+   2.2 By default the design is screen with 2 right columns 
+   2.3 the complete application window will be of the size of the screen and the components will fit themselves in the scrren height itself
+   2.4 Scroll is provided till the height of the screen which is basically the size of the window
+
+
+current 2 column design needs some revisions look at the output image
+the pin pad will scale across the 2 right columns and will be at the bottom of all devices like the wireframe
+and all the other components will come over it 
+
+also now the right column panel as you see in the fallback approach the right column pannel needs to be of the size of the screen but its getting extended below
+
+see there will be cases when the components wont fit in the LSHape or right columns 2 cols structure as well then
+the 2 right columns structure should be followed but the components should shrink in size to with within the device resolution width and height
+
+
+
+1. In fallback mode when we click on the component it enlarges in size and clicking R key on keyboard gets its back to the shrinked size i dont want that it should be of the same size on click
+2. In LShape mode I need some spacing between the bottom row components like a margin on top of the components. Also instead of the space between in the right side panel-col1 components I want it to have some margin on its tops  
