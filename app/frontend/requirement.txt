@@ -130,20 +130,6 @@ nodemon --ext js,html,css --exec electron .
 }
 
 
-put the id scanner and the barcode scanner to the right column and also do one thing the outer component box of the devices make it lighter shade even the border of the box make it lighter that it is right now 
-
-bringing 2 components back to the right column will make the spacing in the bottom row back to noraml like before
-
-
-
-also i want the font size of the component labels a little bigger i think you have reduced the size of that
-
-
-
-also like i said before the pin pad has a blank button and a button with (.) on either side of 0 button dont change that
-
-
-
 Criteria for fallback logic:
 1. If the fixed screen in our UI is smaller than the device screen the application is running on then check
    1.1 If there is still space remaining for the bottom panel to fit below the inner fixed screen.
@@ -155,18 +141,3 @@ Criteria for fallback logic:
    2.2 By default the design is screen with 2 right columns 
    2.3 the complete application window will be of the size of the screen and the components will fit themselves in the scrren height itself
    2.4 Scroll is provided till the height of the screen which is basically the size of the window
-
-
-current 2 column design needs some revisions look at the output image
-the pin pad will scale across the 2 right columns and will be at the bottom of all devices like the wireframe
-and all the other components will come over it 
-
-also now the right column panel as you see in the fallback approach the right column pannel needs to be of the size of the screen but its getting extended below
-
-see there will be cases when the components wont fit in the LSHape or right columns 2 cols structure as well then
-the 2 right columns structure should be followed but the components should shrink in size to with within the device resolution width and height
-
-
-
-1. In fallback mode when we click on the component it enlarges in size and clicking R key on keyboard gets its back to the shrinked size i dont want that it should be of the same size on click
-2. In LShape mode I need some spacing between the bottom row components like a margin on top of the components. Also instead of the space between in the right side panel-col1 components I want it to have some margin on its tops  
